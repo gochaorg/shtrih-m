@@ -2051,4 +2051,93 @@ public class ThreadSafeDriver extends ThreadSafe<Driver>
         });
         return task.waitForFinished();
     }
+    
+    @Override
+    public int GetCashReg() {
+        Task<Integer,Driver> task = runTask( new Consumer<Integer,Driver>() {
+            @Override
+            public Integer accept(Driver unsafeDriver) {
+                return unsafeDriver.GetCashReg();
+            }
+        });
+        return task.waitForFinished();
+    }
+
+    @Override
+    public int getRegisterNumber() {
+        Task<Integer,Driver> task = runTask( new Consumer<Integer,Driver>() {
+            @Override
+            public Integer accept(Driver unsafeDriver) {
+                return unsafeDriver.getRegisterNumber();
+            }
+        });
+        return task.waitForFinished();
+    }
+
+    @Override
+    public void setRegisterNumber(final int v) {
+        Task<Object,Driver> task = runTask( new Consumer<Object,Driver>() {
+            @Override
+            public Integer accept(Driver unsafeDriver) {
+                unsafeDriver.setRegisterNumber(v);
+                return null;
+            }
+        });
+        task.waitForFinished();
+    }
+
+    @Override
+    public Currency getContentsOfCashRegister() {
+        Task<Currency,Driver> task = runTask( new Consumer<Currency,Driver>() {
+            @Override
+            public Currency accept(Driver unsafeDriver) {
+                return unsafeDriver.getContentsOfCashRegister();
+            }
+        });
+        return task.waitForFinished();
+    }
+
+    @Override
+    public String getNameCashReg() {
+        Task<String,Driver> task = runTask( new Consumer<String,Driver>() {
+            @Override
+            public String accept(Driver unsafeDriver) {
+                return unsafeDriver.getNameCashReg();
+            }
+        });
+        return task.waitForFinished();
+    }
+
+    @Override
+    public int GetOperationReg() {
+        Task<Integer,Driver> task = runTask( new Consumer<Integer,Driver>() {
+            @Override
+            public Integer accept(Driver unsafeDriver) {
+                return unsafeDriver.GetOperationReg();
+            }
+        });
+        return task.waitForFinished();
+    }
+
+    @Override
+    public int getContentsOfOperationRegister() {
+        Task<Integer,Driver> task = runTask( new Consumer<Integer,Driver>() {
+            @Override
+            public Integer accept(Driver unsafeDriver) {
+                return unsafeDriver.getContentsOfOperationRegister();
+            }
+        });
+        return task.waitForFinished();
+    }
+
+    @Override
+    public String getNameOperationReg() {
+        Task<String,Driver> task = runTask( new Consumer<String,Driver>() {
+            @Override
+            public String accept(Driver unsafeDriver) {
+                return unsafeDriver.getNameOperationReg();
+            }
+        });
+        return task.waitForFinished();
+    }
 }
