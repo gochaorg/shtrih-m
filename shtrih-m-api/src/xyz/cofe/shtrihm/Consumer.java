@@ -29,7 +29,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Kamnev Georgiy <nt.gocha@gmail.com>
+ * @author Kamnev Georgiy nt.gocha@gmail.com
  */
 public interface Consumer<R,T> {
     R accept( T safeObject );

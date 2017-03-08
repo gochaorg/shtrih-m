@@ -1810,31 +1810,31 @@ public class ShtrihMJacobDriver implements Driver {
     
     //<editor-fold defaultstate="collapsed" desc="stringForPrinting : String - Строка для печати">
     /**
-     * Строка для печати. <p> <p>
+     * Строка для печати. <p> 
      *
      * Строка символов кодовой таблицы WIN1251 для печати.  <p>
      * В  случае,  когда  свойство  используется  методами  PrintString,  PrintWideString,
      * PrintStringWithFont,  в  свойстве  передается  до  249,  249  и  248  символов  соответственно.
-     *  <p> <p>
+     *  <p> 
      *
      * Но количество  символов,  которые  будут  выведены  на  печать,  зависит  от  модели  ККМ,  ширины
      * строки на ленте, параметров настроек ККМ (например, перенос длинных строк), шрифта, которым
-     * печатается  строка.   <p> <p>
+     * печатается  строка.   <p>
      *
      * В  методах  Sale,  SaleEx,  Buy,  BuyEx,  ReturnSale,  ReturnSaleEx,  ReturnBuy,
      * ReturnBuyEx,  Storno,  StornoEx,  CloseCheck,  Discount,  Charge,  StornoDiscount,  StornoCharge,
      * FNCloseCheckEx,  FNDiscountOperation,  FNStorno,  длина  строки  не  превышает  40  символов
-     * (печатается на чеке в строке, идущей перед строкой, содержащей цену/сумму и/или количество).  <p> <p>
+     * (печатается на чеке в строке, идущей перед строкой, содержащей цену/сумму и/или количество).  <p> 
      *
      * При  использовании  методами  RegistrationOnSlipDocument, StandardRegistrationOnSlipDocument,
      * ChargeOnSlipDocument, StandardChargeOnSlipDocument,  DiscountOnSlipDocument,
      * StandardDiscountOnSlipDocument, CloseCheckOnSlipDocument,  StandardCloseCheckOnSlipDocument  и
      * FillSlipDocumentWithUnfiscalInfo данное свойство заполняется символами для вывода на ПД
-     * (не более 250 символов). <p><p>
+     * (не более 250 символов). <p>
      *
      * [id(0x000000d8), propget, helpstring("СтрокаДляПечати")] BSTR StringForPrinting();<p>
      * [id(0x000000d8), propput, helpstring("СтрокаДляПечати")] void StringForPrinting([in] BSTR rhs);
-     * @return --
+     * @return Строка для печати
      */
     @Override
     public synchronized String getStringForPrinting(){
@@ -1850,18 +1850,18 @@ public class ShtrihMJacobDriver implements Driver {
 
     //<editor-fold defaultstate="collapsed" desc="stringQuantity : int - Количество строк">
     /**
-     * Количество строк. <p> <p>
+     * Количество строк. <p> 
      *
-     * Количество строк, на которое необходимо продвинуть документ.  <p> <p>
+     * Количество строк, на которое необходимо продвинуть документ.  <p> 
      *
      * Диапазон значений: 1..255 (максимальное количество строк определяется
-     * размером буфера печати, но не превышает 255).  <p> <p>
+     * размером буфера печати, но не превышает 255).  <p> 
      *
-     * Используется методом FeedDocument. <p><p>
+     * Используется методом FeedDocument. <p>
      *
      * [id(0x000000d9), propget, helpstring("КоличествоСтрок")] long StringQuantity();<p>
      * [id(0x000000d9), propput, helpstring("КоличествоСтрок")] void StringQuantity([in] long rhs);
-     * @return --
+     * @return Количество строк
      */
     @Override
     public synchronized int getStringQuantity(){
@@ -1876,7 +1876,7 @@ public class ShtrihMJacobDriver implements Driver {
     
     //<editor-fold defaultstate="collapsed" desc="summ1 : Currency - Сумма1">
     /**
-     * Сумма1 <p> <p>
+     * Сумма1 <p> 
      *
      * Свойство, используемое для хранения различных значений денежных сумм. <p>
      * Используется методами CashIncome, CashOutcome, CloseCheck, Discount, Charge,
@@ -1884,11 +1884,11 @@ public class ShtrihMJacobDriver implements Driver {
      * DiscountOnSlipDocument, StandardDiscountOnSlipDocument, CloseCheckOnSlipDocument,
      * CloseCheckEx, FNBuildCorrectionReceipt,.FNCloseCheckEx.
      * Модифицируется  методами   GetFMRecordsSum,  CheckSubTotal,  GetEKLZCode2Report,
-     * FNFindDocument, FNStorno. <p> <p>
+     * FNFindDocument, FNStorno. <p> 
      * 
      * [id(0x000000da), propget, helpstring("Сумма1")] CURRENCY Summ1(); <p>
      * [id(0x000000da), propput, helpstring("Сумма1")] void Summ1([in] CURRENCY rhs);
-     * @return --
+     * @return Сумма1
      */
     @Override
     public synchronized com.jacob.com.Currency getSumm1(){
@@ -1903,18 +1903,18 @@ public class ShtrihMJacobDriver implements Driver {
 
     //<editor-fold defaultstate="collapsed" desc="summ2 : Currency - Сумма2">
     /**
-     * Сумма2 <p> <p>
+     * Сумма2 <p>
      *
      * Свойство, используемое для хранения различных значений денежных сумм.  <p>
      * Используется методами CloseCheck, CloseCheckOnSlipDocument, 
      * StandardCloseCheckOnSlipDocument, CloseCheckEx, FNCloseCheckEx (в свойство записывается 
-     * сумма типа оплаты 2).  <p> <p>
+     * сумма типа оплаты 2).   <p>
      * 
-     * Модифицируется методами   GetFMRecordsSum, GetEKLZCode2Report, FNStorno. <p> <p>
+     * Модифицируется методами   GetFMRecordsSum, GetEKLZCode2Report, FNStorno. <p> 
      * 
      * [id(0x000000db), propget, helpstring("Сумма2")] CURRENCY Summ2(); <p>
      * [id(0x000000db), propput, helpstring("Сумма2")] void Summ2([in] CURRENCY rhs); <p>
-     * @return --
+     * @return Сумма2
      */
     @Override
     public synchronized com.jacob.com.Currency getSumm2(){
@@ -1929,18 +1929,18 @@ public class ShtrihMJacobDriver implements Driver {
 
     //<editor-fold defaultstate="collapsed" desc="summ3 : Currency - Сумма3">
     /**
-     * Сумма3 <p> <p>
+     *  Сумма3 <p> 
      *
      * Свойство, используемое для хранения различных значений денежных сумм. 
      * Используется методами CloseCheck, CloseCheckOnSlipDocument, 
      * StandardCloseCheckOnSlipDocument, CloseCheckEx FNCloseCheckEx (в свойство записывается 
-     * сумма типа оплаты 3).  <p> <p>
+     * сумма типа оплаты 3).  <p> 
      * 
-     * Модифицируется методами   GetFMRecordsSum, GetEKLZCode2Report.  <p> <p>
+     * Модифицируется методами   GetFMRecordsSum, GetEKLZCode2Report.   <p>
      * 
      * [id(0x000000dc), propget, helpstring("Сумма3")] CURRENCY Summ3(); <p>
      * [id(0x000000dc), propput, helpstring("Сумма3")] void Summ3([in] CURRENCY rhs); <p>
-     * @return --
+     * @return Сумма3
      */
     @Override
     public synchronized com.jacob.com.Currency getSumm3(){
@@ -1955,17 +1955,19 @@ public class ShtrihMJacobDriver implements Driver {
 
     //<editor-fold defaultstate="collapsed" desc="summ4 : Currency - Сумма4">
     /**
-     * Сумма4 <p> <p>
+     * Сумма4 <p> 
      *
      * Свойство, используемое для хранения различных значений денежных сумм. 
+     * <p>
+     * 
      * Используется методами CloseCheck, CloseCheckOnSlipDocument, 
      * StandardCloseCheckOnSlipDocument, CloseCheckEx, FNCloseCheckEx (в свойство записывается 
      * сумма типа оплаты 4).  <p>
-     * Модифицируется методами   GetFMRecordsSum, GetEKLZCode2Report.  <p> <p>
+     * Модифицируется методами   GetFMRecordsSum, GetEKLZCode2Report.  <p>
      * 
      * [id(0x000000dd), propget, helpstring("Сумма4")] CURRENCY Summ4(); <p>
      * [id(0x000000dd), propput, helpstring("Сумма4")] void Summ4([in] CURRENCY rhs); <p>
-     * @return --
+     * @return Сумма4
      */
     @Override
     public synchronized com.jacob.com.Currency getSumm4(){
@@ -1980,14 +1982,14 @@ public class ShtrihMJacobDriver implements Driver {
 
     //<editor-fold defaultstate="collapsed" desc="discountOnCheck : double - Скидка на чек">
     /**
-     * Скидка на чек. <p> <p>
+     * Скидка на чек. <p> 
      * Диапазон значений: 0…99,99.  <p>
      * Используется методами CloseCheck, CloseCheckOnSlipDocument,
-     * StandardCloseCheckOnSlipDocument FNCloseCheckEx .   <p>  <p>
+     * StandardCloseCheckOnSlipDocument FNCloseCheckEx .  <p>
      *
      * [id(0x0000007e), propget, helpstring("СкидкаНаЧек")] double DiscountOnCheck();  <p>
      * [id(0x0000007e), propput, helpstring("СкидкаНаЧек")] void DiscountOnCheck([in] double rhs);
-     * @return --
+     * @return Скидка на чек
      */
     @Override
     public synchronized double getDiscountOnCheck(){
@@ -2001,16 +2003,17 @@ public class ShtrihMJacobDriver implements Driver {
     
     //<editor-fold defaultstate="collapsed" desc="price : Currency - Цена за единицу товара">
     /**
-     * Цена за единицу товара. <p> <p>
+     * Цена за единицу товара. <p> 
+     * 
      * Используется  методами   Sale,  SaleEx,  Buy,  BuyEx,  ReturnSale,  ReturnSaleEx,  ReturnBuy,
      * ReturnBuyEx,  Storno,  StornoEx,  SetRKParameters,  RegistrationOnSlipDocument,
-     * StandardRegistrationOnSlipDocument, FNDiscountOperation.   <p> <p>
+     * StandardRegistrationOnSlipDocument, FNDiscountOperation. <p> 
      *
-     * Модифицируется методом GetRKStatus, FNStorno.  <p> <p>
+     * Модифицируется методом GetRKStatus, FNStorno.  <p>
      *
      * [id(0x000000c0), propget, helpstring("Цена")] CURRENCY Price(); <p>
      * [id(0x000000c0), propput, helpstring("Цена")] void Price([in] CURRENCY rhs);
-     * @return --
+     * @return  Цена за единицу товара
      */
     @Override
     public synchronized Currency getPrice(){
@@ -2025,17 +2028,17 @@ public class ShtrihMJacobDriver implements Driver {
     
     //<editor-fold defaultstate="collapsed" desc="quantity : double - Количество  товара">
     /**
-     * Количество  товара. <p> <p>
+     * Количество  товара. <p>
      *
      * Используется  методами  Sale,  Buy,  ReturnSale,  ReturnBuy,  Storno,
      * RegistrationOnSlipDocument,  StandardRegistrationOnSlipDocument,  FNDiscountOperation,
      * FNStorno (диапазон значений от 0,001 до 9999999,999, то есть округляется до трёх знаков после
      * запятой),  а  также  методами  SaleEx,  BuyEx,  ReturnSaleEx,  ReturnBuyEx,  StornoEx
-     * (диапазон значений от 0,000001 до 9999999,999999, то есть округляется до шести знаков после запятой).  <p> <p>
+     * (диапазон значений от 0,000001 до 9999999,999999, то есть округляется до шести знаков после запятой).  <p>
      *
      * [id(0x000000c1), propget, helpstring("Количество")] double Quantity(); <p>
      * [id(0x000000c1), propput, helpstring("Количество")] void Quantity([in] double rhs);
-     * @return --
+     * @return  Количество  товара
      */
     @Override
     public synchronized double getQuantity(){
@@ -2050,19 +2053,19 @@ public class ShtrihMJacobDriver implements Driver {
     
     //<editor-fold defaultstate="collapsed" desc="department : int -  Номер отдела (секции)">
     /**
-     * Номер отдела (секции). <p> <p>
+     * Номер отдела (секции). <p> 
      *
-     * Диапазон значений: 0…16.  <p> <p>
+     * Диапазон значений: 0…16.  <p> 
      * Используется методами
      * Sale, SaleEx, Buy, BuyEx, ReturnSale, ReturnSaleEx, ReturnBuy,
      * ReturnBuyEx, Storno, StornoEx, EKLZDepartmentReportInDatesRange,
      * EKLZDepartmentReportInSessionsRange, GetEKLZDepartmentReportInDatesRange,
      * GetEKLZDepartmentReportInSessionsRange, RegistrationOnSlipDocument,
-     * StandardRegistrationOnSlipDocument, FNDiscountOperation, FNStorno.  <p> <p>
+     * StandardRegistrationOnSlipDocument, FNDiscountOperation, FNStorno.  <p>
      *
      * [id(0x0000007b), propget, helpstring("Отдел")] long Department(); <p>
      * [id(0x0000007b), propput, helpstring("Отдел")] void Department([in] long rhs);
-     * @return --
+     * @return Номер отдела (секции)
      */
     @Override
     public synchronized int getDepartment(){
@@ -2076,7 +2079,7 @@ public class ShtrihMJacobDriver implements Driver {
   
     //<editor-fold defaultstate="collapsed" desc="tax1 : int - 1-ый номер налоговой группы">
     /**
-     * 1-ый номер налоговой группы.  <p> <p>
+     * 1-ый номер налоговой группы.  <p> 
      * Используется методами регистрации Sale, SaleEx, Buy, BuyEx, 
      * ReturnSale, ReturnSaleEx, ReturnBuy, ReturnBuyEx, Storno, StornoEx, Charge, StornoCharge, 
      * Discount, StornoDiscount, CloseCheck, RegistrationOnSlipDocument, 
@@ -2085,11 +2088,11 @@ public class ShtrihMJacobDriver implements Driver {
      * CloseCheckOnSlipDocument, StandardCloseCheckOnSlipDocument, FNCloseCheckEx, 
      * FNDiscountOperation, FNStorno, а так же всеми методами регистрации продаж нефтепродуктов и 
      * методом. 
-     *  <p> <p>
+     *  <p>
      * 
      * [id(0x000000e0), propget, helpstring("Налог1")] long Tax1(); <p>
      * [id(0x000000e0), propput, helpstring("Налог1")] void Tax1([in] long rhs);
-     * @return --
+     * @return 1-ый номер налоговой группы
      */
     @Override
     public synchronized int getTax1(){
@@ -2103,7 +2106,7 @@ public class ShtrihMJacobDriver implements Driver {
   
     //<editor-fold defaultstate="collapsed" desc="tax2 : int - 2-ый номер налоговой группы">
     /**
-     * 2-ой номер налоговой группы.  <p> <p>
+     * 2-ой номер налоговой группы. <p>
      * 
      * Используется методами регистрации Sale, SaleEx, Buy, BuyEx, 
      * ReturnSale, ReturnSaleEx, ReturnBuy, ReturnBuyEx, Storno, StornoEx, Charge, StornoCharge, 
@@ -2113,11 +2116,11 @@ public class ShtrihMJacobDriver implements Driver {
      * CloseCheckOnSlipDocument, StandardCloseCheckOnSlipDocument, FNCloseCheckEx, а так же 
      * всеми методами регистрации продаж нефтепродуктов и методом. 
      * Диапазон значений: 0..4 (0 – нет налоговой группы). 
-     *  <p> <p>
+     *  <p>
      * 
      * [id(0x000000e1), propget, helpstring("Налог2")] long Tax2();  <p>
      * [id(0x000000e1), propput, helpstring("Налог2")] void Tax2([in] long rhs);
-     * @return --
+     * @return 2-ой номер налоговой группы
      */
     @Override
     public synchronized int getTax2(){
@@ -2131,7 +2134,7 @@ public class ShtrihMJacobDriver implements Driver {
   
     //<editor-fold defaultstate="collapsed" desc="tax3 : int - 3-ый номер налоговой группы">
     /**
-     * 3-ой номер налоговой группы.  <p> <p>
+     * 3-ой номер налоговой группы.  <p>
      * 
      * Используется методами регистрации Sale, SaleEx, Buy, BuyEx, 
      * ReturnSale, ReturnSaleEx, ReturnBuy, ReturnBuyEx, Storno, StornoEx, Charge, StornoCharge, 
@@ -2141,11 +2144,11 @@ public class ShtrihMJacobDriver implements Driver {
      * CloseCheckOnSlipDocument, StandardCloseCheckOnSlipDocument, FNCloseCheckEx, а так же 
      * всеми методами регистрации продаж нефтепродуктов и методом. 
      * Диапазон значений: 0..4 (0 – нет налоговой группы).
-     *  <p> <p>
+     *  <p> 
      * 
      * [id(0x000000e2), propget, helpstring("Налог3")] long Tax3(); <p> 
      * [id(0x000000e2), propput, helpstring("Налог3")] void Tax3([in] long rhs);
-     * @return --
+     * @return 3-ой номер налоговой группы
      */
     @Override
     public synchronized int getTax3(){
@@ -2159,7 +2162,7 @@ public class ShtrihMJacobDriver implements Driver {
   
     //<editor-fold defaultstate="collapsed" desc="tax4 : int - 4-ый номер налоговой группы">
     /**
-     * 4-ой номер налоговой группы.  <p> <p>
+     * 4-ой номер налоговой группы. <p>
      * 
      * Используется методами регистрации Sale, SaleEx, Buy, BuyEx, 
      * ReturnSale, ReturnSaleEx, ReturnBuy, ReturnBuyEx, Storno, StornoEx, Charge, StornoCharge, 
@@ -2169,11 +2172,11 @@ public class ShtrihMJacobDriver implements Driver {
      * CloseCheckOnSlipDocument, StandardCloseCheckOnSlipDocument, FNCloseCheckEx, а так же 
      * всеми методами регистрации продаж нефтепродуктов и методом. 
      * Диапазон значений: 0..4 (0 – нет налоговой группы). 
-     *  <p> <p>
+     *  <p> 
      * 
      * [id(0x000000e3), propget, helpstring("Налог4")] long Tax4(); <p>
      * [id(0x000000e3), propput, helpstring("Налог4")] void Tax4([in] long rhs);
-     * @return --
+     * @return 4-ой номер налоговой группы
      */
     @Override
     public synchronized int getTax4(){
@@ -2227,10 +2230,10 @@ public class ShtrihMJacobDriver implements Driver {
      *
      * Внимание!: Данный метод SaleEx отличается от метода Sale лишь тем, что в методе SaleEx
      * округление количества (см. свойство Quantity) идёт не до трёх знаков после запятой, а до
-     * шести знаков.  <p> <p>
+     * шести знаков.  <p>
      *
      * [id(0x00000054), helpstring("ПродажаТочно")] long SaleEx();
-     * @return --
+     * @return Код ошибки или 0
      */
     @CallState(state = "2|4|7|8.0|9")
     @InputProperties(properties = {
@@ -2313,13 +2316,13 @@ public class ShtrihMJacobDriver implements Driver {
      * идущей перед строкой, содержащей цену(сумму) и/или количество).
      * </ul>
      *
-     * <b>Модифицируемые свойства</b> <p>
+     * <b>Модифицируемые свойства</b> 
      * <ul>
      * <li>OperatorNumber  - Порядковый номер оператора, чей пароль был введен.
      * </ul>
      *
      * [id(0x00000053), helpstring("Продажа")] long Sale();
-     * @return
+     * @return Код ошибки или 0
      */
     @CallState(state = "2|4|7|8.0|9")
     @InputProperties(properties = {
@@ -2531,7 +2534,7 @@ public class ShtrihMJacobDriver implements Driver {
      * <p>
      * [id(0x00000086), propget, helpstring("СборкаККМ")]
      * long ECRBuild();
-     * <p>
+     * @return Номер сборки ПО ККМ.
      */
     @Override
     public synchronized int getECRBuild() {
@@ -2548,7 +2551,7 @@ public class ShtrihMJacobDriver implements Driver {
      * Дата внутреннего программного обеспечения ККМ.      * <p>
      * [id(0x0000008d), propget, helpstring("ДатаПОККМ")]
      * DATE ECRSoftDate();
-     * <p>
+     * @return Дата ПО ККМ.
      */
     @Override
     public synchronized Date getECRSoftDate() {
@@ -3171,7 +3174,7 @@ public class ShtrihMJacobDriver implements Driver {
      * FALSE – последняя запись в ФП не испорчена. Модифицируется методом GetECRStatus.      * <p>
      * [id(0x000001dd), propget, helpstring("ПоследняяЗаписьВФПИспорчена")]
      * VARIANT_BOOL IsLastFMRecordCorrupted();
-     * <p>
+     * @return TRUE – последняя запись в ФП испорчена
      */
     @Override
     public synchronized boolean isLastFMRecordCorrupted() {
@@ -4459,13 +4462,13 @@ public class ShtrihMJacobDriver implements Driver {
      * 
      * <b>Не меняет режима ККМ.</b> <p>
      * 
-     * <b>Используемые свойства</b><p>
+     * <b>Используемые свойства</b>
      * <ul>
      * <li>password Пароль для исполнения метода драйвера.
      * <li>registerNumber Номер регистра в командах работы с денежными или операционными регистрами.
      * </ul>
      * 
-     * <b>Модифицируемые свойства</b><p>
+     * <b>Модифицируемые свойства</b>
      * <ul>
      * <li> operatorNumber Порядковый номер оператора, чей пароль был введен.
      * <li> contentsOfCashRegister  Содержимое денежного регистра Содержимое операционного регистра (см. «Инструкцию по
@@ -4505,6 +4508,7 @@ public class ShtrihMJacobDriver implements Driver {
      * <pre>v.GetCashReg;</pre>
      * <p>
      * [id(0x00000023), helpstring("ПолучитьДенежныйРегистр")] long GetCashReg();
+     * @return Код ошибки или 0
      */
     @CallState(state = "*")
     @InputProperties(properties = {
@@ -4529,6 +4533,7 @@ public class ShtrihMJacobDriver implements Driver {
      * Используется методами GetCashReg, GetOperationReg.  <p>
      * [id(0x000000c6), propget, helpstring("НомерРегистра")] long RegisterNumber(); <p>
      * [id(0x000000c6), propput, helpstring("НомерРегистра")] void RegisterNumber([in] long rhs);
+     * @return Номер регистра
      */
     @Override
     public synchronized int getRegisterNumber(){
@@ -4537,7 +4542,7 @@ public class ShtrihMJacobDriver implements Driver {
     
     /**
      * Номер регистра в командах работы с денежными или операционными регистрами
-     * @param v
+     * @param v Номер регистра
      * @see #getRegisterNumber()
      * @see #GetCashReg()
      */
@@ -4701,52 +4706,397 @@ public class ShtrihMJacobDriver implements Driver {
         return drv.getPropertyAsString("NameOperationReg");
     }
     //</editor-fold>
-
-    /*
-    CloseNonFiscalDocument
     
-    ЗакрытьНефискальныйДокумент 
-Метод выполняет команду ККТ E3h (Закрыть нефискальный документ). 
-    */
+    //<editor-fold defaultstate="collapsed" desc="stornoCharge()">
+    /**
+     * Метод регистрирует сторно надбавки на сумму, задаваемую в свойстве summ1, с вычислением
+     * налогов.
+     * <p>
+     * Перед вызовом метода в свойстве Password указать пароль оператора и заполнить перечисленные
+     * в таблице используемые свойства.
+     * <p>
+     * В свойстве OperatorNumber возвращается порядковый номер оператора, чей пароль был введен.
+     * <p>
+     * <b>Работает в режиме 8 (см. свойство ECRMode), если до этого в смене была сделана операция «Надбавка».  </b>
+     * <p>
+     * <b>Не меняет режима ККМ. </b>
+     * <p>
+     * Используемые свойства
+     * <ul>
+     * <li>password Пароль для исполнения метода драйвера.
+     * <li>summ1 Свойство, используемое для хранения различных значений денежных сумм.
+     * <li>tax1 1-ый номер налоговой группы.
+     * <li>tax2 2-ой номер налоговой группы.
+     * <li>tax3 3-ий номер налоговой группы.
+     * <li>tax4 4-ый номер налоговой группы.
+     * <li>stringForPrinting Строка символов для печати (печатается на чеке в строке,
+     * идущей перед строкой, содержащей цену(сумму) и/или количество).
+     * </ul>
+     * Модифицируемые свойства
+     * <ul>
+     * <li>operatorNumber Порядковый номер оператора, чей пароль был введен.
+     * </ul>
+     * [id(0x00000064), helpstring("СторноНадбавки")] long StornoCharge();
+     */
+//    @Override
+    @InputProperties( properties = {
+        @DriverProperty(name = "password"),
+        @DriverProperty(name = "summ1"),
+        @DriverProperty(name = "tax1"),
+        @DriverProperty(name = "tax2"),
+        @DriverProperty(name = "tax3"),
+        @DriverProperty(name = "tax4"),
+        @DriverProperty(name = "stringForPrinting"),
+    })
+    @OutputProperties( properties = {
+        @DriverProperty(name = "operatorNumber")
+    })
+    @CallState(state = "8")
+    @Override
+    public synchronized int stornoCharge() {
+        return drv.invoke("StornoCharge").getInt();
+    }
+    //</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="stornoDiscount()">
+    /**
+     * Метод регистрирует сторно скидки на сумму, задаваемую в свойстве summ1, с вычислением
+     * налогов.
+     * <p>
+     * Перед вызовом метода в свойстве Password указать пароль оператора и заполнить перечисленные
+     * в таблице используемые свойства.
+     * <p>
+     * В свойстве OperatorNumber возвращается порядковый номер оператора, чей пароль был введен.
+     * <p>
+     * <b>Работает в режиме 8 (см. свойство ECRMode), если до этого в смене была сделана операция
+     * «Скидка».</b>
+     * <p>
+     * <b>Не меняет режима ККМ.</b>
+     * <p>
+     * Используемые свойства
+     * <ul>
+     * <li> password Целое до 8 разрядов RW Пароль для исполнения метода драйвера.
+     * <li> summ1 Свойство, используемое для хранения различных значений денежных сумм.
+     * <li> tax1 1-ый номер налоговой группы.
+     * <li> tax2 2-ой номер налоговой группы.
+     * <li> tax3 3-ий номер налоговой группы.
+     * <li> tax4 4-ый номер налоговой группы.
+     * <li> stringForPrinting  Строка символов  для печати
+     * (печатается на чеке в строке, идущей перед строкой, содержащей цену(сумму) и/или количество).
+     * </ul>
+     * Модифицируемые свойства
+     * <ul>
+     * <li>OperatorNumber Порядковый номер оператора, чей пароль был введен. 246
+     * </ul>
+     * [id(0x00000065), helpstring("СторноСкидки")] long StornoDiscount();
+     */
+    @InputProperties( properties = {
+        @DriverProperty(name = "password"),
+        @DriverProperty(name = "summ1"),
+        @DriverProperty(name = "tax1"),
+        @DriverProperty(name = "tax2"),
+        @DriverProperty(name = "tax3"),
+        @DriverProperty(name = "tax4"),
+        @DriverProperty(name = "stringForPrinting"),
+    })
+    @OutputProperties( properties = {
+        @DriverProperty(name = "operatorNumber")
+    })
+    @CallState(state = "8")
+    @Override
+    public synchronized int stornoDiscount() {
+        return drv.invoke("StornoDiscount").getInt();
+    }
+    //</editor-fold>
     
-    /*
-    ExcisableOperation
+    //<editor-fold defaultstate="collapsed" desc="printReportWithoutCleaning()">
+    /**
+     * Метод печатает сменный отчет без гашения.
+     * <p>
+     * Перед вызовом метода в свойстве password указать пароль администратора или системного
+     * администратора.
+     * <p>
+     * В свойстве operatorNumber возвращается порядковый номер оператора, чей пароль был введен.
+     * <p>
+     * <b>Работает в режимах 2, 3 и 4 (см. свойство ECRMode).  </b>
+     * <p>
+     * <b>Не меняет режима ККМ. </b>
+     * <p>
+     * Используемые свойства
+     * <ul>
+     * <li> password Целое до 8 разрядов RW Пароль для исполнения метода драйвера.
+     * </ul>
+     * Модифицируемые свойства
+     * <ul>
+     * <li> operatorNumber Целое 1..30 R Порядковый номер оператора, чей пароль был введен.
+     * </ul>
+     * <p>
+     * [id(0x00000043), helpstring("СнятьОтчётБезГашения")] long PrintReportWithoutCleaning();
+     * @return Код ошибки или 0
+     */
+    @InputProperties( properties = {
+        @DriverProperty(name = "password"),
+    })
+    @OutputProperties( properties = {
+        @DriverProperty(name = "operatorNumber")
+    })
+    @CallState(state = "2|3|4")
+    @Override
+    public synchronized int printReportWithoutCleaning() {
+        return drv.invoke("PrintReportWithoutCleaning").getInt();
+    }
+    //</editor-fold>
     
-    Название  Тип  Диапазон/длина  Доступ  Расшифровка  Стр. 
-OperationType  Целое  –  RW 
-Тип операции 
-(  00h - Продажа 
-  01h - Покупка 
-  02h - Возврат продажи 
-  03h - Возврат покупки 
-  10h - Сторно продажи 
-  11h - Сторно покупки 
-  12h - Сторно возврата продажи 
-  13h - Сторно возврата покупки). 
-247 
-ExciseCode   Целое  –  RW  Код акциза  217 
-Department  Целое  0..16  RW  Номер отдела (секции).  206  
-Price  Денеж. 
-0.. 
-99999999,99 
-RW  Цена за единицу товара.  251  
-Tax1   Целое  0..4  RW  1-ый номер налоговой группы.  279  
-Tax2   Целое  0..4  RW  2-ой номер налоговой группы.  282  
-Tax3   Целое  0..4  RW  3-ий номер налоговой группы.  284  
-Tax4   Целое  0..4  RW  4-ый номер налоговой группы.  287  
-StringForPrinting   Строка  –  RW 
-Строка символов кодовой таблицы WIN1251 
-для печати (печатается на чеке в строки, 
-идущей перед строкой, содержащей 
-цену(сумму) и/или количество). 
-267  
-BarCode         Данные штрихкода  191 
- 
-Модифицируемые свойства 
-Название  Тип  Диапазон/длина  Доступ  Расшифровка  Стр. 
-OperatorNumber   Целое  1..30  R 
-Порядковый номер оператора, чей пароль был 
-введен. 
-    */
+    //<editor-fold defaultstate="collapsed" desc="printTaxReport()">
+    /**
+     * Метод печатает отчёт о продажах по налогам.
+     * <p>
+     * Перед вызовом метода в свойстве password указать пароль администратора или системного
+     * администратора.
+     * <p>
+     * В свойстве operatorNumber возвращается порядковый номер оператора, чей пароль был введен.
+     * <p>
+     * <b>Работает в режимах 2 и 3.  </b>
+     * <p>
+     * <b>Не меняет режима ККМ.   </b>
+     * <p>
+     * Используемые свойства
+     * <ul>
+     * <li> password Пароль для исполнения метода драйвера.
+     * </ul>
+     * Модифицируемые свойства
+     * <ul>
+     * <li> operatorNumber Порядковый номер оператора, чей пароль был введен.
+     * </ul>
+     * [id(0x000001d5), helpstring("СнятьОтчётПоНалогам")] long PrintTaxReport();
+     */
+    @InputProperties(properties = {
+        @DriverProperty(name = "password"),})
+    @OutputProperties(properties = {
+        @DriverProperty(name = "operatorNumber")
+    })
+    @CallState(state = "2|3")
+    @Override
+    public synchronized int printTaxReport() {
+        return drv.invoke("PrintTaxReport").getInt();
+    }
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="printWareReport()">
+    /**
+     * СтятьОтчетПоТоварам.
+     * <p>
+     * Используемые свойства
+     * <ul>
+     * <li> password Пароль для исполнения метода драйвера.
+     * </ul>
+     * Модифицируемые свойства
+     * <ul>
+     * <li> operatorNumber Порядковый номер оператора, чей пароль был введен.
+     * </ul>
+     * [id(0x000007da), helpstring("СнятьОтчетПоТоварам")] long PrintWareReport();
+     */
+    @InputProperties(properties = {
+        @DriverProperty(name = "password"),})
+    @OutputProperties(properties = {
+        @DriverProperty(name = "operatorNumber")
+    })
+    @CallState(state = "?")
+    @Override
+    public synchronized int printWareReport() {
+        return drv.invoke("PrintWareReport").getInt();
+    }
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="printZReportFromBuffer()">
+    /**
+     * Метод передает команду C7, “ Распечатать отчет из буфера” .
+     * <p>
+     * Перед вызовом метода необходимо заполнить свойство password.
+     * <p>
+     * В свойстве operatorNumber возвращается порядковый номер оператора, чей пароль был введен.
+     * <p>
+     * Используемые свойства
+     * <ul>
+     * <li> password Пароль для исполнения метода драйвера.
+     * </ul>
+     * Модифицируемые свойства
+     * <ul>
+     * <li> operatorNumber Порядковый номер оператора, чей пароль был введен.
+     * </ul>
+     * <p>
+     * При печати ККТ переходит в режим 0.
+     * <p>
+     * [id(0x00000287), helpstring("РаспечататьZОтчетИзБуфера")]
+     * long PrintZReportFromBuffer();
+     * @return Код ошибки или 0
+     */
+    @InputProperties(properties = {
+        @DriverProperty(name = "password"),})
+    @OutputProperties(properties = {
+        @DriverProperty(name = "operatorNumber")
+    })
+    @CallState(state = "?")
+    @Override
+    public synchronized int printZReportFromBuffer() {
+        return drv.invoke("PrintZReportFromBuffer").getInt();
+    }
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="printZReportInBuffer()">
+    /**
+     * Метод передает команду C6, “Суточный отчет с гашением в буфер”.
+     * <p>
+     * Перед вызовом метода необходимо заполнить свойство password.
+     * <p>
+     * В свойстве operatorNumber
+     * возвращается порядковый номер оператора, чей пароль был введен.
+     * <p>
+     * Если внутренний буфер ККТ заполнен, выдается ошибка 75 (4Bh), “Буфер чека переполнен”.
+     * <p>
+     * Используемые свойства
+     * <ul>
+     * <li>
+     * password Пароль для исполнения метода драйвера.
+     * </li>
+     * </ul>
+     * Модифицируемые свойства
+     * <ul>
+     * <li>
+     * operatorNumber Порядковый номер оператора, чей пароль был введен.
+     * </li>
+     * </ul>
+     * [id(0x00000286), helpstring("СнятьZОтчетВБуфер")]
+     * long PrintZReportInBuffer();
+     */
+    @InputProperties(properties = {
+        @DriverProperty(name = "password"),})
+    @OutputProperties(properties = {
+        @DriverProperty(name = "operatorNumber")
+    })
+    @CallState(state = "?")
+    @Override
+    public synchronized int printZReportInBuffer() {
+        return drv.invoke("PrintZReportInBuffer").getInt();
+    }
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="readReportBufferLine()">
+    /**
+     * ПолучитьСтрокуБуфераОтчета.
+     * <p>
+     * Используемые свойства
+     * <ul>
+     * <li> password Пароль для исполнения метода драйвера.
+     * <li> documentNumber Номер документа
+     * <li> lineNumber Номер строки
+     * </ul>
+     * Модифицируемые свойства
+     * <ul>
+     * <li> stringForPrinting Строка буфера отчета
+     * </ul>
+     * [id(0x000007b1), helpstring("ПолучитьСтрокуБуфераОтчета")]
+     * long ReadReportBufferLine();
+     */
+    @InputProperties(properties = {
+        @DriverProperty(name = "password"),
+        @DriverProperty(name = "documentNumber"),
+        @DriverProperty(name = "lineNumber"),
+    })
+    @OutputProperties(properties = {
+        @DriverProperty(name = "stringForPrinting")
+    })
+    @CallState(state = "?")
+    @Override
+    public synchronized int readReportBufferLine() {
+        return drv.invoke("ReadReportBufferLine").getInt();
+    }
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="documentNumber">
+    /**
+     * НомерДокумента.
+     * <p>
+     * Тип: Integer / Целое
+     * <p>
+     * Номер документа при вызове метода PrintDocumentTitle.
+     * <p>
+     * Диапазон значений: 1…9999.
+     * <p>
+     * Используется методами: FNFindDocument, FNRequestFiscalDocumentTLV,
+     * FNGetOFDTicketByDocNumber.
+     * <p>
+     * Модифицируется методами: FNBuildCalculationStateReport, FNBuildCorrectionReceipt,
+     * FNBuildRegistrationReport, FNBuildReregistrationReport, FNCloseFiscalMode, FNCloseSession,
+     * FNDiscountOperation FNFindDocument, FNGetFiscalizationResult, FNGetInfoExchangeStatus,
+     * FNGetOFDTicketByDocNumber, FNGetStatus, FNGetUnconfirmedDocCount, FNOpenSession.
+     * <p>
+     * [id(0x00000080), propget, helpstring("НомерДокумента")]
+     * long DocumentNumber();
+     * <p>
+     * [id(0x00000080), propput, helpstring("НомерДокумента")]
+     * void DocumentNumber([in] long rhs);
+     */
+    @Override
+    public synchronized int getDocumentNumber() {
+        return drv.getPropertyAsInt("DocumentNumber");
+    }
+    
+    /**
+     * НомерДокумента
+     * @param v  НомерДокумента
+     * @see #getDocumentNumber()
+     */
+    @Override
+    public synchronized void setDocumentNumber(int v){
+        drv.setProperty("DocumentNumber", v);
+    }
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="lineNumber">
+    /**
+     * НомерСтроки. <p>
+     *
+     * Тип: Integer / Целое. <p>
+     *
+     * В случае, когда используется методами LoadLineData и LoadLineDataEx, свойство содержит
+     * номер линии при записи графического изображения в ККМ.<p>
+     *
+     * В случае, если используется методом
+     * WideLoadLineData, свойство содержит адрес строки памяти ККТ, с которой начнётся запись
+     * изображения. <p>
+     *
+     * В том случае, если используется методами PrintBarcodeGraph или
+     * PrintBarcodeLine, свойство задает высоту штрих кода в точках.<p>
+     *
+     * Диапазон значений: для метода LoadLineData 0..199, в остальных случаях 0..1199.
+     * <p>
+     *
+     * Используется методами LoadLineData, LoadLineDataEx ,WideLoadLineData,
+     * PrintBarcodeGraph и PrintBarcodeLine.<p>
+     *
+     * Примечание: Расширенную графику поддерживает ККМ «ШТРИХ-МИНИ-ФР-К» и чековый
+     * принтер «ШТРИХ-500».
+     * <p>
+     * [id(0x000000b2), propget, helpstring("НомерЛинии")]
+     * long LineNumber();
+     * <p>
+     * [id(0x000000b2), propput, helpstring("НомерЛинии")]
+     * void LineNumber([in] long rhs);
+     */
+    @Override
+    public synchronized int getLineNumber() {
+        return drv.getPropertyAsInt("LineNumber");
+    }
+    
+    /**
+     * НомерСтроки
+     * @param v Номер строки
+     * @see #getLineNumber()
+     */
+    @Override
+    public synchronized void setLineNumber( int v ){
+        drv.setProperty("LineNumber", v);
+    }
+    //</editor-fold>
 }

@@ -28,7 +28,7 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * Описывает состояние (режим) в который перейдет аппарат
- * @author Kamnev Georgiy <nt.gocha@gmail.com>
+ * @author Kamnev Georgiy nt.gocha@gmail.com
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface TargetState {
@@ -57,7 +57,7 @@ public @interface TargetState {
      * <p>
      * "8.2|9|1" - в ECRMode.getMode()=8 ECRMode.getMode8Status()=2 или ECRMode.getMode()=9 или ECRMode.getMode()=1
      * <p>
-     * "!8.2&!9&!1" - в !(mode=8 mode8status=2) и !(mode=9) и !(m=1)
+     * "!8.2&amp;!9&amp;!1" - в !(mode=8 mode8status=2) и !(mode=9) и !(m=1)
      * @return перечень состояний
      */
     String state() default "";

@@ -28,7 +28,7 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * Описывает свойство драйвера
- * @author Kamnev Georgiy <nt.gocha@gmail.com>
+ * @author Kamnev Georgiy nt.gocha@gmail.com
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface DriverProperty {

@@ -29,9 +29,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Драйвер Штрих-М.
+ * Драйвер ККМ Штрих-М.
  *
- * @author Kamnev Georgiy <nt.gocha@gmail.com>
+ * @author Kamnev Georgiy nt.gocha@gmail.com
  */
 public interface Driver {
     //<editor-fold defaultstate="collapsed" desc="SetDate() - Устанавливает  дату">
@@ -55,6 +55,7 @@ public interface Driver {
      * Date - Внутренняя дата ККМ.
      * <p>
      * [id(0x00000056), helpstring("УстановитьДату")] long SetDate();
+     * @return Код ошибки или 0
      */
     @InputProperties(properties = {
         @DriverProperty(name = "date")
@@ -1282,8 +1283,6 @@ public interface Driver {
     /**
      * Статус режима 8.
      * <p>
-     * <p>
-     * <p>
      * Находясь в режиме 8, ККМ может быть в одном из состояний:
      * <p>
      * Статус режима 8 Описание статуса режима ККМ
@@ -1296,13 +1295,11 @@ public interface Driver {
      * <p>
      * 3 Открыт чек возврата покупки
      * <p>
-     * <p>
      * Модифицируется методами GetECRStatus и GetShortECRStatus.
      * <p>
      * См. также: свойство ECRMode.
      * <p>
      * [id(0x0000008a), propget, helpstring("Статус8Режима")] long ECRMode8Status();
-     * <p>
      * @return --
      */
     int getECRMode8Status();
@@ -1888,8 +1885,8 @@ public interface Driver {
     String getLicense();
     
     /**
-     * 
-     * @param str 
+     * Текстовый параметр, содержащий лицензию
+     * @param str Текстовый параметр, содержащий лицензию
      * @see #getLicense() 
      */
     void setLicense(String str);
@@ -1906,6 +1903,7 @@ public interface Driver {
      * Диапазон значений: 1..99.
      * <p>
      * Модифицируется методом GetECRStatus.
+     * @return  Номер В Зале
      */
     int getLogicalNumber();
     //</editor-fold>
@@ -1923,6 +1921,7 @@ public interface Driver {
      * Используется методами CashIncome и CashOutcome.
      * Модифицируется методами GetECRStatus, OpenFiscalSlipDocument, и
      * OpenStandardFiscalSlipDocument.
+     * @return Сквозной Номер Документа.
      */
     int getOpenDocumentNumber();
     //</editor-fold>
@@ -1939,6 +1938,7 @@ public interface Driver {
      * <p>
      * [id(0x000000bb), propget, helpstring("НомерОператора")]
      * long OperatorNumber();
+     * @return Номер Оператора.
      */
     int getOperatorNumber();
     //</editor-fold>
@@ -1985,7 +1985,7 @@ public interface Driver {
      * <p>
      * [id(0x000000be), propput, helpstring("ПоложениеТочки")]
      * void PointPosition([in] VARIANT_BOOL rhs);
-     * <p>
+     * @return Признак положения десятичной точки.
      */
     boolean isPointPosition();
 
@@ -3480,49 +3480,6 @@ public interface Driver {
     int printString();
     //</editor-fold>
     
-    /*
-    CloseNonFiscalDocument
-    ЗакрытьНефискальныйДокумент
-    Метод выполняет команду ККТ E3h (Закрыть нефискальный документ).
-     */
- /*
-    ExcisableOperation
-    Название  Тип  Диапазон/длина  Доступ  Расшифровка  Стр.
-    OperationType  Целое  –  RW
-    Тип операции
-    (  00h - Продажа
-    01h - Покупка
-    02h - Возврат продажи
-    03h - Возврат покупки
-    10h - Сторно продажи
-    11h - Сторно покупки
-    12h - Сторно возврата продажи
-    13h - Сторно возврата покупки).
-    247
-    ExciseCode   Целое  –  RW  Код акциза  217
-    Department  Целое  0..16  RW  Номер отдела (секции).  206
-    Price  Денеж.
-    0..
-    99999999,99
-    RW  Цена за единицу товара.  251
-    Tax1   Целое  0..4  RW  1-ый номер налоговой группы.  279
-    Tax2   Целое  0..4  RW  2-ой номер налоговой группы.  282
-    Tax3   Целое  0..4  RW  3-ий номер налоговой группы.  284
-    Tax4   Целое  0..4  RW  4-ый номер налоговой группы.  287
-    StringForPrinting   Строка  –  RW
-    Строка символов кодовой таблицы WIN1251
-    для печати (печатается на чеке в строки,
-    идущей перед строкой, содержащей
-    цену(сумму) и/или количество).
-    267
-    BarCode         Данные штрихкода  191
-    Модифицируемые свойства
-    Название  Тип  Диапазон/длина  Доступ  Расшифровка  Стр.
-    OperatorNumber   Целое  1..30  R
-    Порядковый номер оператора, чей пароль был
-    введен.
-     */
-
     //<editor-fold defaultstate="collapsed" desc="readLicense() - Прочитать лицензию.">
     /**
      * Прочитать лицензию.
@@ -4469,5 +4426,362 @@ public interface Driver {
      * @see #GetCashReg()
      */
     public String getNameOperationReg();
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="stornoCharge()">
+    /**
+     * Метод регистрирует сторно надбавки на сумму, задаваемую в свойстве summ1, с вычислением
+     * налогов.
+     * <p>
+     * Перед вызовом метода в свойстве Password указать пароль оператора и заполнить перечисленные
+     * в таблице используемые свойства.
+     * <p>
+     * В свойстве OperatorNumber возвращается порядковый номер оператора, чей пароль был введен.
+     * <p>
+     * <b>Работает в режиме 8 (см. свойство ECRMode), если до этого в смене была сделана операция «Надбавка».  </b>
+     * <p>
+     * <b>Не меняет режима ККМ. </b>
+     * <p>
+     * Используемые свойства
+     * <ul>
+     * <li>password Пароль для исполнения метода драйвера.
+     * <li>summ1 Свойство, используемое для хранения различных значений денежных сумм.
+     * <li>tax1 1-ый номер налоговой группы.
+     * <li>tax2 2-ой номер налоговой группы.
+     * <li>tax3 3-ий номер налоговой группы.
+     * <li>tax4 4-ый номер налоговой группы.
+     * <li>stringForPrinting Строка символов для печати (печатается на чеке в строке,
+     * идущей перед строкой, содержащей цену(сумму) и/или количество).
+     * </ul>
+     * Модифицируемые свойства
+     * <ul>
+     * <li>operatorNumber Порядковый номер оператора, чей пароль был введен.
+     * </ul>
+     * [id(0x00000064), helpstring("СторноНадбавки")] long StornoCharge();
+     */
+//    @Override
+    @InputProperties( properties = {
+        @DriverProperty(name = "password"),
+        @DriverProperty(name = "summ1"),
+        @DriverProperty(name = "tax1"),
+        @DriverProperty(name = "tax2"),
+        @DriverProperty(name = "tax3"),
+        @DriverProperty(name = "tax4"),
+        @DriverProperty(name = "stringForPrinting"),
+    })
+    @OutputProperties( properties = {
+        @DriverProperty(name = "operatorNumber")
+    })
+    @CallState(state = "8")
+    public int stornoCharge();
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="printReportWithoutCleaning()">
+    /**
+     * Метод печатает сменный отчет без гашения.
+     * <p>
+     * Перед вызовом метода в свойстве password указать пароль администратора или системного
+     * администратора.
+     * <p>
+     * В свойстве operatorNumber возвращается порядковый номер оператора, чей пароль был введен.
+     * <p>
+     * <b>Работает в режимах 2, 3 и 4 (см. свойство ECRMode).  </b>
+     * <p>
+     * <b>Не меняет режима ККМ. </b>
+     * <p>
+     * Используемые свойства
+     * <ul>
+     * <li> password Целое до 8 разрядов RW Пароль для исполнения метода драйвера.
+     * </ul>
+     * Модифицируемые свойства
+     * <ul>
+     * <li> operatorNumber Целое 1..30 R Порядковый номер оператора, чей пароль был введен.
+     * </ul>
+     * <p>
+     * [id(0x00000043), helpstring("СнятьОтчётБезГашения")] long PrintReportWithoutCleaning();
+     * <p>
+     */
+    @InputProperties( properties = {
+        @DriverProperty(name = "password"),
+    })
+    @OutputProperties( properties = {
+        @DriverProperty(name = "operatorNumber")
+    })
+    @CallState(state = "2|3|4")
+    public int printReportWithoutCleaning();
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="stornoDiscount()">
+    /**
+     * Метод регистрирует сторно скидки на сумму, задаваемую в свойстве summ1, с вычислением
+     * налогов.
+     * <p>
+     * Перед вызовом метода в свойстве Password указать пароль оператора и заполнить перечисленные
+     * в таблице используемые свойства.
+     * <p>
+     * В свойстве OperatorNumber возвращается порядковый номер оператора, чей пароль был введен.
+     * <p>
+     * <b>Работает в режиме 8 (см. свойство ECRMode), если до этого в смене была сделана операция
+     * «Скидка».</b>
+     * <p>
+     * <b>Не меняет режима ККМ.</b>
+     * <p>
+     * Используемые свойства
+     * <ul>
+     * <li> password Целое до 8 разрядов RW Пароль для исполнения метода драйвера.
+     * <li> summ1 Свойство, используемое для хранения различных значений денежных сумм.
+     * <li> tax1 1-ый номер налоговой группы.
+     * <li> tax2 2-ой номер налоговой группы.
+     * <li> tax3 3-ий номер налоговой группы.
+     * <li> tax4 4-ый номер налоговой группы.
+     * <li> stringForPrinting  Строка символов  для печати
+     * (печатается на чеке в строке, идущей перед строкой, содержащей цену(сумму) и/или количество).
+     * </ul>
+     * Модифицируемые свойства
+     * <ul>
+     * <li>OperatorNumber Порядковый номер оператора, чей пароль был введен. 246
+     * </ul>
+     * [id(0x00000065), helpstring("СторноСкидки")] long StornoDiscount();
+     */
+    @InputProperties( properties = {
+        @DriverProperty(name = "password"),
+        @DriverProperty(name = "summ1"),
+        @DriverProperty(name = "tax1"),
+        @DriverProperty(name = "tax2"),
+        @DriverProperty(name = "tax3"),
+        @DriverProperty(name = "tax4"),
+        @DriverProperty(name = "stringForPrinting"),
+    })
+    @OutputProperties( properties = {
+        @DriverProperty(name = "operatorNumber")
+    })
+    @CallState(state = "8")
+    public int stornoDiscount() ;
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="printTaxReport()">
+    /**
+     * Метод печатает отчёт о продажах по налогам.
+     * <p>
+     * Перед вызовом метода в свойстве password указать пароль администратора или системного
+     * администратора.
+     * <p>
+     * В свойстве operatorNumber возвращается порядковый номер оператора, чей пароль был введен.
+     * <p>
+     * <b>Работает в режимах 2 и 3.  </b>
+     * <p>
+     * <b>Не меняет режима ККМ.   </b>
+     * <p>
+     * Используемые свойства
+     * <ul>
+     * <li> password Пароль для исполнения метода драйвера.
+     * </ul>
+     * Модифицируемые свойства
+     * <ul>
+     * <li> operatorNumber Порядковый номер оператора, чей пароль был введен.
+     * </ul>
+     * [id(0x000001d5), helpstring("СнятьОтчётПоНалогам")] long PrintTaxReport();
+     */
+    @InputProperties(properties = {
+        @DriverProperty(name = "password"),})
+    @OutputProperties(properties = {
+        @DriverProperty(name = "operatorNumber")
+    })
+    @CallState(state = "2|3")
+    public int printTaxReport();
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="printWareReport()">
+    /**
+     * СтятьОтчетПоТоварам.
+     * <p>
+     * Используемые свойства
+     * <ul>
+     * <li> password Пароль для исполнения метода драйвера.
+     * </ul>
+     * Модифицируемые свойства
+     * <ul>
+     * <li> operatorNumber Порядковый номер оператора, чей пароль был введен.
+     * </ul>
+     * [id(0x000007da), helpstring("СнятьОтчетПоТоварам")] long PrintWareReport();
+     */
+    @InputProperties(properties = {
+        @DriverProperty(name = "password"),})
+    @OutputProperties(properties = {
+        @DriverProperty(name = "operatorNumber")
+    })
+    @CallState(state = "?")
+    public int printWareReport() ;
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="printZReportFromBuffer()">
+    /**
+     * Метод передает команду C7, “ Распечатать отчет из буфера” .
+     * <p>
+     * Перед вызовом метода необходимо заполнить свойство password.
+     * <p>
+     * В свойстве operatorNumber возвращается порядковый номер оператора, чей пароль был введен.
+     * <p>
+     * Используемые свойства
+     * <ul>
+     * <li> password Пароль для исполнения метода драйвера.
+     * </ul>
+     * Модифицируемые свойства
+     * <ul>
+     * <li> operatorNumber Порядковый номер оператора, чей пароль был введен.
+     * </ul>
+     * <p>
+     * При печати ККТ переходит в режим 0.
+     * <p>
+     * [id(0x00000287), helpstring("РаспечататьZОтчетИзБуфера")]
+     * long PrintZReportFromBuffer();
+     * <p>
+     */
+    @InputProperties(properties = {
+        @DriverProperty(name = "password"),})
+    @OutputProperties(properties = {
+        @DriverProperty(name = "operatorNumber")
+    })
+    @CallState(state = "?")
+    public int printZReportFromBuffer() ;
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="printZReportInBuffer()">
+    /**
+     * Метод передает команду C6, “Суточный отчет с гашением в буфер”.
+     * <p>
+     * Перед вызовом метода необходимо заполнить свойство password.
+     * <p>
+     * В свойстве operatorNumber
+     * возвращается порядковый номер оператора, чей пароль был введен.
+     * <p>
+     * Если внутренний буфер ККТ заполнен, выдается ошибка 75 (4Bh), “Буфер чека переполнен”.
+     * <p>
+     * Используемые свойства
+     * <ul>
+     * <li>
+     * password Пароль для исполнения метода драйвера.
+     * </li>
+     * </ul>
+     * Модифицируемые свойства
+     * <ul>
+     * <li>
+     * operatorNumber Порядковый номер оператора, чей пароль был введен.
+     * </li>
+     * </ul>
+     * [id(0x00000286), helpstring("СнятьZОтчетВБуфер")]
+     * long PrintZReportInBuffer();
+     */
+    @InputProperties(properties = {
+        @DriverProperty(name = "password"),})
+    @OutputProperties(properties = {
+        @DriverProperty(name = "operatorNumber")
+    })
+    @CallState(state = "?")
+    public int printZReportInBuffer() ;
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="readReportBufferLine()">
+    /**
+     * ПолучитьСтрокуБуфераОтчета.
+     * <p>
+     * Используемые свойства
+     * <ul>
+     * <li> password Пароль для исполнения метода драйвера.
+     * <li> documentNumber Номер документа
+     * <li> lineNumber Номер строки
+     * </ul>
+     * Модифицируемые свойства
+     * <ul>
+     * <li> stringForPrinting Строка буфера отчета
+     * </ul>
+     * [id(0x000007b1), helpstring("ПолучитьСтрокуБуфераОтчета")]
+     * long ReadReportBufferLine();
+     */
+    @InputProperties(properties = {
+        @DriverProperty(name = "password"),
+        @DriverProperty(name = "documentNumber"),
+        @DriverProperty(name = "lineNumber"),
+    })
+    @OutputProperties(properties = {
+        @DriverProperty(name = "stringForPrinting")
+    })
+    @CallState(state = "?")
+    public int readReportBufferLine() ;
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="documentNumber">
+    /**
+     * НомерДокумента.
+     * <p>
+     * Тип: Integer / Целое
+     * <p>
+     * Номер документа при вызове метода PrintDocumentTitle.
+     * <p>
+     * Диапазон значений: 1…9999.
+     * <p>
+     * Используется методами: FNFindDocument, FNRequestFiscalDocumentTLV,
+     * FNGetOFDTicketByDocNumber.
+     * <p>
+     * Модифицируется методами: FNBuildCalculationStateReport, FNBuildCorrectionReceipt,
+     * FNBuildRegistrationReport, FNBuildReregistrationReport, FNCloseFiscalMode, FNCloseSession,
+     * FNDiscountOperation FNFindDocument, FNGetFiscalizationResult, FNGetInfoExchangeStatus,
+     * FNGetOFDTicketByDocNumber, FNGetStatus, FNGetUnconfirmedDocCount, FNOpenSession.
+     * <p>
+     * [id(0x00000080), propget, helpstring("НомерДокумента")]
+     * long DocumentNumber();
+     * <p>
+     * [id(0x00000080), propput, helpstring("НомерДокумента")]
+     * void DocumentNumber([in] long rhs);
+     */
+    public int getDocumentNumber() ;
+    
+    /**
+     * НомерДокумента
+     * @param v  НомерДокумента
+     * @see #getDocumentNumber()
+     */
+    public void setDocumentNumber(int v);
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="lineNumber">
+    /**
+     * НомерСтроки. <p>
+     *
+     * Тип: Integer / Целое. <p>
+     *
+     * В случае, когда используется методами LoadLineData и LoadLineDataEx, свойство содержит
+     * номер линии при записи графического изображения в ККМ.<p>
+     *
+     * В случае, если используется методом
+     * WideLoadLineData, свойство содержит адрес строки памяти ККТ, с которой начнётся запись
+     * изображения. <p>
+     *
+     * В том случае, если используется методами PrintBarcodeGraph или
+     * PrintBarcodeLine, свойство задает высоту штрих кода в точках.<p>
+     *
+     * Диапазон значений: для метода LoadLineData 0..199, в остальных случаях 0..1199.
+     * <p>
+     *
+     * Используется методами LoadLineData, LoadLineDataEx ,WideLoadLineData,
+     * PrintBarcodeGraph и PrintBarcodeLine.<p>
+     *
+     * Примечание: Расширенную графику поддерживает ККМ «ШТРИХ-МИНИ-ФР-К» и чековый
+     * принтер «ШТРИХ-500».
+     * <p>
+     * [id(0x000000b2), propget, helpstring("НомерЛинии")]
+     * long LineNumber();
+     * <p>
+     * [id(0x000000b2), propput, helpstring("НомерЛинии")]
+     * void LineNumber([in] long rhs);
+     */
+    public int getLineNumber() ;
+    
+    /**
+     * НомерСтроки
+     * @param v Номер строки
+     * @see #getLineNumber()
+     */
+    public void setLineNumber( int v ) ;
     //</editor-fold>
 }

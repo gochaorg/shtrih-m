@@ -28,7 +28,7 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * Указывает исходящие (модифициремые) свойства
-* @author Kamnev Georgiy <nt.gocha@gmail.com>
+* @author Kamnev Georgiy nt.gocha@gmail.com
 */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface OutputProperties {

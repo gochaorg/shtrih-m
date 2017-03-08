@@ -2140,4 +2140,138 @@ public class ThreadSafeDriver extends ThreadSafe<Driver>
         });
         return task.waitForFinished();
     }
+    
+    @Override
+    public int stornoCharge() {
+        Task<Integer,Driver> task = runTask( new Consumer<Integer,Driver>() {
+            @Override
+            public Integer accept(Driver unsafeDriver) {
+                return unsafeDriver.stornoCharge();
+            }
+        });
+        return task.waitForFinished();
+    }
+    
+    @Override
+    public int stornoDiscount() {
+        Task<Integer,Driver> task = runTask( new Consumer<Integer,Driver>() {
+            @Override
+            public Integer accept(Driver unsafeDriver) {
+                return unsafeDriver.stornoDiscount();
+            }
+        });
+        return task.waitForFinished();
+    }
+    
+    @Override
+    public int printReportWithoutCleaning() {
+        Task<Integer,Driver> task = runTask( new Consumer<Integer,Driver>() {
+            @Override
+            public Integer accept(Driver unsafeDriver) {
+                return unsafeDriver.printReportWithoutCleaning();
+            }
+        });
+        return task.waitForFinished();
+    }
+    
+    @Override
+    public int printTaxReport() {
+        Task<Integer,Driver> task = runTask( new Consumer<Integer,Driver>() {
+            @Override
+            public Integer accept(Driver unsafeDriver) {
+                return unsafeDriver.printTaxReport();
+            }
+        });
+        return task.waitForFinished();
+    }
+    
+    @Override
+    public int printWareReport() {
+        Task<Integer,Driver> task = runTask( new Consumer<Integer,Driver>() {
+            @Override
+            public Integer accept(Driver unsafeDriver) {
+                return unsafeDriver.printWareReport();
+            }
+        });
+        return task.waitForFinished();
+    }
+    
+    @Override
+    public int printZReportFromBuffer() {
+        Task<Integer,Driver> task = runTask( new Consumer<Integer,Driver>() {
+            @Override
+            public Integer accept(Driver unsafeDriver) {
+                return unsafeDriver.printZReportFromBuffer();
+            }
+        });
+        return task.waitForFinished();
+    }
+    
+    @Override
+    public int printZReportInBuffer() {
+        Task<Integer,Driver> task = runTask( new Consumer<Integer,Driver>() {
+            @Override
+            public Integer accept(Driver unsafeDriver) {
+                return unsafeDriver.printZReportInBuffer();
+            }
+        });
+        return task.waitForFinished();
+    }
+    
+    @Override
+    public int readReportBufferLine() {
+        Task<Integer,Driver> task = runTask( new Consumer<Integer,Driver>() {
+            @Override
+            public Integer accept(Driver unsafeDriver) {
+                return unsafeDriver.readReportBufferLine();
+            }
+        });
+        return task.waitForFinished();
+    }
+    
+    @Override
+    public int getDocumentNumber() {
+        Task<Integer,Driver> task = runTask( new Consumer<Integer,Driver>() {
+            @Override
+            public Integer accept(Driver unsafeDriver) {
+                return unsafeDriver.getDocumentNumber();
+            }
+        });
+        return task.waitForFinished();
+    }
+    
+    @Override
+    public void setDocumentNumber(final int v) {
+        Task<Integer,Driver> task = runTask( new Consumer<Integer,Driver>() {
+            @Override
+            public Integer accept(Driver unsafeDriver) {
+                unsafeDriver.setDocumentNumber(v);
+                return null;
+            }
+        });
+        task.waitForFinished();
+    }
+    
+    @Override
+    public int getLineNumber() {
+        Task<Integer,Driver> task = runTask( new Consumer<Integer,Driver>() {
+            @Override
+            public Integer accept(Driver unsafeDriver) {
+                return unsafeDriver.getLineNumber();
+            }
+        });
+        return task.waitForFinished();
+    }
+    
+    @Override
+    public void setLineNumber(final int v) {
+        Task<Integer,Driver> task = runTask( new Consumer<Integer,Driver>() {
+            @Override
+            public Integer accept(Driver unsafeDriver) {
+                unsafeDriver.setLineNumber(v);
+                return null;
+            }
+        });
+        task.waitForFinished();
+    }
 }
