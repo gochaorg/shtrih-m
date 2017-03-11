@@ -6,3 +6,6 @@ https://github.com/gochaorg/shtrih-m/releases
 
 # Документация
 javadoc https://gochaorg.github.io/shtrih-m/shtrih-m-api/dist/javadoc/
+
+# Альтернативный репозиторий
+https://sourceforge.net/projects/kkm-shtrihm
