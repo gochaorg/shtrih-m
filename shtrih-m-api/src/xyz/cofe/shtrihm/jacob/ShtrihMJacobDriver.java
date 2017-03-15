@@ -132,7 +132,7 @@ public class ShtrihMJacobDriver implements Driver {
         if( progid==null )progid = "Addin.DRvFR";
         drv = new ActiveXComponent(progid);
     }
-//</editor-fold>
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="resultCode : int - Результат">
     /**
@@ -142,7 +142,9 @@ public class ShtrihMJacobDriver implements Driver {
     @Override
     public synchronized int getResultCode(){
         Variant v = drv.getProperty("ResultCode");
-        return v.getInt();
+        int r = v.getInt();
+        logFiner("getResultCode {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -154,7 +156,9 @@ public class ShtrihMJacobDriver implements Driver {
     @Override
     public synchronized String getResultCodeDescription(){
         Variant v = drv.getProperty("ResultCodeDescription");
-        return v.getString();
+        String str = v.getString();
+        logFiner("getResultCodeDescription {0}", str);
+        return str;
     }
     //</editor-fold>
     
@@ -181,12 +185,13 @@ public class ShtrihMJacobDriver implements Driver {
     public synchronized void setPassword(int pswd){        
         //drv.setProperty("Password", new Variant(pswd));
         drv.setProperty("Password", pswd);
+        logFine("setPassword {0}", pswd);
     }
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="conntect/disconnect etc">
     //<editor-fold defaultstate="collapsed" desc="connect() - Установить связь">
-// [id(0x0000000d), helpstring("УстановитьСвязь")] long Connect();
+    // [id(0x0000000d), helpstring("УстановитьСвязь")] long Connect();
     /**
      * Установить связь. <p>
      * Перед вызовом метода в свойстве ComputerName указать имя компьютера, к которому подключена ККТ. <p>
@@ -227,7 +232,9 @@ public class ShtrihMJacobDriver implements Driver {
     @Override
     public synchronized int connect(){
         Variant v = drv.invoke("Connect");
-        return v.getInt();
+        int r = v.getInt();
+        logFine("connect {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -240,7 +247,9 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState()
     @Override
     public int disconnect(){
-        return drv.invoke("Disconnect").getInt();
+        int r = drv.invoke("Disconnect").getInt();
+        logFine("disconnect {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -268,7 +277,9 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState()
     @Override
     public synchronized int checkConnection() {
-        return drv.invoke("CheckConnection").getInt();
+        int r = drv.invoke("CheckConnection").getInt();
+        logFine("checkConnection {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -285,13 +296,16 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isCheckFMConnection(){
-        return drv.getPropertyAsBoolean("CheckFMConnection");
+        boolean r = drv.getPropertyAsBoolean("CheckFMConnection");
+        logFiner("isCheckFMConnection {0}", r);
+        return r;
     }
     @Override
     public synchronized void setCheckFMConnection(boolean v){
         drv.setProperty("CheckFMConnection", v);
+        logFine("setCheckFMConnection {0}", v);
     }
-//</editor-fold>
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="checkEJConnection : boolean - Проверять связь с ЭКЛЗ">
     /**
@@ -305,12 +319,15 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isCheckEJConnection() {
-        return drv.getPropertyAsBoolean("CheckEJConnection");
+        boolean r = drv.getPropertyAsBoolean("CheckEJConnection");
+        logFiner("isCheckEJConnection {0}", r);
+        return r;
     }
     
     @Override
     public synchronized void setCheckEJConnection(boolean v) {
         drv.setProperty("CheckEJConnection", v);
+        logFine("setCheckEJConnection {0}", v);
     }
     //</editor-fold>
     
@@ -327,7 +344,9 @@ public class ShtrihMJacobDriver implements Driver {
     @Override
     public synchronized int getComNumber(){
         Variant v = drv.getProperty("ComNumber");
-        return v.getInt();
+        int r = v.getInt();
+        logFiner("getComNumber {0}", r);
+        return r;
     }
     
     /**
@@ -337,8 +356,9 @@ public class ShtrihMJacobDriver implements Driver {
     @Override
     public synchronized void setComNumber( int cport ){
         drv.setProperty("ComNumber", cport);
+        logFine("setComNumber {0}", cport);
     }
-//</editor-fold>
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="baudRate : int - Скорость обмена между ККМ и подключенным к ней устройством">
     //BaudRate
@@ -363,7 +383,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getBaudRate(){
-        return drv.getProperty("BaudRate").getInt();
+        int r = drv.getProperty("BaudRate").getInt();
+        logFiner("getBaudRate {0}", r);
+        return r;
     }
     
     /**
@@ -373,6 +395,7 @@ public class ShtrihMJacobDriver implements Driver {
     @Override
     public synchronized void setBaudRate( int brate ){
         drv.setProperty("BaudRate", brate);
+        logFine("setBaudRate {0}", brate);
     }
     //</editor-fold>
     
@@ -400,14 +423,17 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getTimeout(){
-        return drv.getPropertyAsInt("Timeout");
+        int r = drv.getPropertyAsInt("Timeout");
+        logFiner("getTimeout {0}", r);
+        return r;
     }
     
     @Override
     public synchronized void setTimeout( int timeout ){
         drv.setProperty("Timeout", timeout);
+        logFine("setTimeout {0}", timeout);
     }
-//</editor-fold>
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="computerName : String - ИмяКомпьютера">
     /**
@@ -421,15 +447,18 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized String getComputerName(){
-        return drv.getPropertyAsString("ComputerName");
+        String r = drv.getPropertyAsString("ComputerName");
+        logFiner("getComputerName {0}", r);
+        return r;
     }
     
     @Override
     public synchronized void setComputerName(String cname){
         if( cname==null )throw new IllegalArgumentException( "cname==null" );
         drv.setProperty("ComputerName", cname);
+        logFine("setComputerName {0}", cname);
     }
-//</editor-fold>
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="protocolType : int - Тип протокола">
     /**
@@ -442,14 +471,17 @@ public class ShtrihMJacobDriver implements Driver {
     
     @Override
     public synchronized int getProtocolType(){
-        return drv.getPropertyAsInt("ProtocolType");
+        int r = drv.getPropertyAsInt("ProtocolType");
+        logFiner("getProtocolType {0}", r);
+        return r;
     }
     
     @Override
     public synchronized void setProtocolType( int ptype ){
         drv.setProperty("ProtocolType", ptype);
+        logFine("setProtocolType {0}", ptype);
     }
-//</editor-fold>
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="connectionType : int - Тип подключения к устройству">
     /**
@@ -473,15 +505,18 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getConnectionType(){
-        return drv.getPropertyAsInt("ConnectionType");
+        int r = drv.getPropertyAsInt("ConnectionType");
+        logFiner("getConnectionType {0}", r);
+        return r;
     }
     
     @Override
     public synchronized void setConnectionType( int type ){
         drv.setProperty("ConnectionType", type);
+        logFine("setConnectionType {0}", type);
     }
-//</editor-fold>
-//</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="дата / время">
     //<editor-fold defaultstate="collapsed" desc="time : Date - Внутреннее время ККМ.">
@@ -497,13 +532,16 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized Date getTime(){
-        return drv.getProperty("Time").getJavaDate();
+        Date r = drv.getProperty("Time").getJavaDate();
+        logFiner("getTime {0}", r);
+        return r;
     }
     
     @Override
     public synchronized void setTime(Date date){
         if( date==null )throw new IllegalArgumentException("date==null");
         drv.setProperty("Time", new Variant(date));
+        logFine("setTime {0} {1}", date.getTime(), date);
     }
     //</editor-fold>
     
@@ -517,13 +555,16 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized String getTimeStr(){
-        return drv.getProperty("TimeStr").getString();
+        String r = drv.getProperty("TimeStr").getString();
+        logFiner("getTimeStr {0}", r);
+        return r;
     }
     
     @Override
     public synchronized void setTimeStr(String time){
         if( time==null )throw new IllegalArgumentException("time==null");
         drv.setProperty("TimeStr", time);
+        logFine("setTimeStr {0}", time);
     }
     //</editor-fold>
     
@@ -551,15 +592,18 @@ public class ShtrihMJacobDriver implements Driver {
     
     @Override
     public synchronized Date getDate(){
-        return drv.getProperty("Date").getJavaDate();
+        Date r = drv.getProperty("Date").getJavaDate();
+        logFiner("getDate {0}", r);
+        return r;
     }
     
     @Override
     public synchronized void setDate(Date d){
         if( d==null )throw new IllegalArgumentException("d==null");
         drv.setProperty("Date", new Variant(d) );
+        logFine("setDate {0}", d);
     }
-//</editor-fold>
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="SetDate() - Устанавливает  дату">
     /**
@@ -588,7 +632,9 @@ public class ShtrihMJacobDriver implements Driver {
     })
     @Override
     public synchronized int SetDate(){
-        return drv.invoke("SetDate").getInt();
+        int r = drv.invoke("SetDate").getInt();
+        logFine("SetDate {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -617,7 +663,9 @@ public class ShtrihMJacobDriver implements Driver {
     })
     @Override
     public synchronized int SetTime(){
-        return drv.invoke("SetTime").getInt();
+        int r = drv.invoke("SetTime").getInt();
+        logFine("SetTime {0}", r);
+        return r;
     }
 //</editor-fold>
     
@@ -646,7 +694,9 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState(state = "6")
     @Override
     public synchronized int confirmDate(){
-        return drv.invoke("ConfirmDate").getInt();
+        int r = drv.invoke("ConfirmDate").getInt();
+        logFine("confirmDate {0}", r);
+        return r;
     }
     //</editor-fold>
     //</editor-fold>    
@@ -684,7 +734,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getECRMode(){
-        return drv.getPropertyAsInt("ECRMode");
+        int r = drv.getPropertyAsInt("ECRMode");
+        logFiner("getECRMode {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -707,7 +759,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getECRMode8Status(){
-        return drv.getPropertyAsInt("ECRMode8Status");
+        int r = drv.getPropertyAsInt("ECRMode8Status");
+        logFiner("getECRMode8Status {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -725,7 +779,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized String getECRModeDescription(){
-        return drv.getPropertyAsString("ECRModeDescription");
+        String r = drv.getPropertyAsString("ECRModeDescription");
+        logFiner("getECRModeDescription {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -766,7 +822,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getECRAdvancedMode(){
-        return drv.getPropertyAsInt("ECRAdvancedMode");
+        int r = drv.getPropertyAsInt("ECRAdvancedMode");
+        logFiner("getECRAdvancedMode {0}", r);
+        return r;
     }
     
     /**
@@ -780,9 +838,11 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized String getECRAdvancedModeDescription(){
-        return drv.getPropertyAsString("ECRAdvancedModeDescription");
+        String r = drv.getPropertyAsString("ECRAdvancedModeDescription");
+        logFiner("getECRAdvancedModeDescription {0}", r);
+        return r;
     }
-//</editor-fold>
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="emergencyStopCode : int - Код аврийной остановки.">
     /**
@@ -809,7 +869,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getEmergencyStopCode(){
-        return drv.getPropertyAsInt("EmergencyStopCode");
+        int r = drv.getPropertyAsInt("EmergencyStopCode");
+        logFiner("getEmergencyStopCode {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -827,9 +889,11 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized String getEmergencyStopCodeDescription(){
-        return drv.getPropertyAsString("EmergencyStopCodeDescription");
+        String r = drv.getPropertyAsString("EmergencyStopCodeDescription");
+        logFiner("getEmergencyStopCodeDescription {0}", r);
+        return r;
     }
-//</editor-fold>
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="getShortECRStatus() - Метод запрашивает состояние ККМ">
     /**
@@ -918,11 +982,11 @@ public class ShtrihMJacobDriver implements Driver {
     })
     @Override
     public synchronized int getShortECRStatus(){
-        return drv.invoke("GetShortECRStatus").getInt();
+        int r = drv.invoke("GetShortECRStatus").getInt();
+        logFine("getShortECRStatus {0}", r);
+        return r;
     }
-//</editor-fold>
-    
-    
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="getECRStatus() - ПолучитьСостояниеККМ">
     /**
@@ -1142,10 +1206,11 @@ public class ShtrihMJacobDriver implements Driver {
     })
     @Override
     public synchronized int getECRStatus(){
-        return drv.invoke("GetECRStatus").getInt();
+        int r = drv.invoke("GetECRStatus").getInt();
+        logFine("getECRStatus {0}", r);
+        return r;
     }
     //</editor-fold>
-    
     
     //<editor-fold defaultstate="collapsed" desc="continuePrint()">
     /**
@@ -1184,7 +1249,9 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState(state = "*.3")
     @Override
     public synchronized int continuePrint() {
-        return drv.invoke("ContinuePrint").getInt();
+        int r = drv.invoke("ContinuePrint").getInt();
+        logFine("continuePrint {0}", r);
+        return r;
     }
     //</editor-fold>
     //</editor-fold>
@@ -1202,7 +1269,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isEKLZOverflow() {
-        return drv.getPropertyAsBoolean("IsEKLZOverflow");
+        boolean r = drv.getPropertyAsBoolean("IsEKLZOverflow");
+        logFiner("isEKLZOverflow {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -1222,7 +1291,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isFM1IsPresent() {
-        return drv.getPropertyAsBoolean("FM1IsPresent");
+        boolean r = drv.getPropertyAsBoolean("FM1IsPresent");
+        logFiner("isFM1IsPresent {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -1241,7 +1312,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isFM2IsPresent() {
-        return drv.getPropertyAsBoolean("FM2IsPresent");
+        boolean r = drv.getPropertyAsBoolean("FM2IsPresent");
+        logFiner("isFM2IsPresent {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -1264,12 +1337,15 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getPortNumber() {
-        return drv.getPropertyAsInt("PortNumber");
+        int r = drv.getPropertyAsInt("PortNumber");
+        logFiner("getPortNumber {0}", r);
+        return r;
     }
     
     @Override
     public synchronized void setPortNumber(int v) {
         drv.setProperty("PortNumber", v);
+        logFine("setPortNumber {0}", v);
     }
     //</editor-fold>
 
@@ -1298,7 +1374,9 @@ public class ShtrihMJacobDriver implements Driver {
     })
     @Override
     public synchronized int openSession(){
-        return drv.invoke("OpenSession").getInt();
+        int r = drv.invoke("OpenSession").getInt();
+        logFine("openSession {0}", r);
+        return r;
     }
     //</editor-fold>
         
@@ -1347,7 +1425,9 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState()
     @Override
     public synchronized int resetECR() {
-        return drv.invoke("ResetECR").getInt();
+        int r = drv.invoke("ResetECR").getInt();
+        logFine("resetECR {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -1408,7 +1488,9 @@ public class ShtrihMJacobDriver implements Driver {
     })
     @Override
     public synchronized int waitForPrinting() {
-        return drv.invoke("WaitForPrinting").getInt();
+        int r = drv.invoke("WaitForPrinting").getInt();
+        logFine("waitForPrinting {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -1428,13 +1510,16 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getWaitForPrintingDelay(){
-        return drv.getPropertyAsInt("WaitForPrintingDelay");
+        int r = drv.getPropertyAsInt("WaitForPrintingDelay");
+        logFiner("getWaitForPrintingDelay {0}", r);
+        return r;
     }
     @Override
     public synchronized void setWaitForPrintingDelay( int t ){
         drv.setProperty("WaitForPrintingDelay", t);
+        logFine("setWaitForPrintingDelay {0}", t);
     }
-//</editor-fold>    
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="сonnectionTimeout : int - Таймаут подключения">
     /**
@@ -1444,12 +1529,15 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getConnectionTimeout(){
-        return drv.getPropertyAsInt("ConnectionTimeout");
+        int r = drv.getPropertyAsInt("ConnectionTimeout");
+        logFiner("getConnectionTimeout {0}", r);
+        return r;
     }
     
     @Override
     public synchronized void setConnectionTimeout( int v ){
         drv.setProperty("ConnectionTimeout", v);
+        logFine("setConnectionTimeout {0}", v);
     }
     //</editor-fold>
     
@@ -1479,7 +1567,9 @@ public class ShtrihMJacobDriver implements Driver {
     })
     @Override
     public synchronized int interruptDataStream() {
-        return drv.invoke("InterruptDataStream").getInt();
+        int r = drv.invoke("InterruptDataStream").getInt();
+        logFine("interruptDataStream {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -1518,7 +1608,9 @@ public class ShtrihMJacobDriver implements Driver {
     })
     @Override
     public synchronized int interruptTest() {
-        return drv.invoke("InterruptTest").getInt();
+        int r = drv.invoke("InterruptTest").getInt();
+        logFine("interruptTest {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -1543,7 +1635,9 @@ public class ShtrihMJacobDriver implements Driver {
     })
     @Override
     public synchronized int resetSettings() {
-        return drv.invoke("ResetSettings").getInt();
+        int r = drv.invoke("ResetSettings").getInt();
+        logFine("resetSettings {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -1575,7 +1669,9 @@ public class ShtrihMJacobDriver implements Driver {
     })
     @Override
     public synchronized int resetSummary(){
-        return drv.invoke("ResetSummary").getInt();
+        int r = drv.invoke("ResetSummary").getInt();
+        logFine("resetSummary {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -1611,9 +1707,11 @@ public class ShtrihMJacobDriver implements Driver {
     })
     @Override
     public synchronized int SetPointPosition() {
-        return drv.invoke("SetPointPosition").getInt();
+        int r = drv.invoke("SetPointPosition").getInt();
+        logFine("SetPointPosition {0}", r);
+        return r;
     }
-//</editor-fold>
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="pointPosition : boolean - Положение десятичной точки">
     /**
@@ -1638,12 +1736,15 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isPointPosition() {
-        return drv.getPropertyAsBoolean("PointPosition");
+        boolean r = drv.getPropertyAsBoolean("PointPosition");
+        logFiner("isPointPosition {0}", r);
+        return r;
     }
     
     @Override
     public synchronized void setPointPosition(boolean p) {
         drv.setProperty("PointPosition", p);
+        logFine("setPointPosition {0}", p);
     }
     //</editor-fold>
     
@@ -1667,7 +1768,9 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState()
     @Override
     public synchronized int saveState() {
-        return drv.invoke("SaveState").getInt();
+        int r = drv.invoke("SaveState").getInt();
+        logFine("saveState {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -1690,7 +1793,9 @@ public class ShtrihMJacobDriver implements Driver {
     })
     @Override
     public synchronized int restoreState() {
-        return drv.invoke("RestoreState").getInt();
+        int r = drv.invoke("RestoreState").getInt();
+        logFine("restoreState {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -1731,7 +1836,9 @@ public class ShtrihMJacobDriver implements Driver {
     })
     @Override
     public synchronized int readLicense() {
-        return drv.invoke("ReadLicense").getInt();
+        int r = drv.invoke("ReadLicense").getInt();
+        logFine("readLicense {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -1761,9 +1868,11 @@ public class ShtrihMJacobDriver implements Driver {
     })
     @Override
     public synchronized int writeLicense() {
-        return drv.invoke("WriteLicense").getInt();
+        int r = drv.invoke("WriteLicense").getInt();
+        logFine("writeLicense {0}", r);
+        return r;
     }
-//</editor-fold>
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="license : String - Текстовый параметр, содержащий лицензию">
     /**
@@ -1781,15 +1890,18 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized String getLicense(){
-        return drv.getPropertyAsString("License");
+        String r = drv.getPropertyAsString("License");
+        logFiner("getLicense {0}", r);
+        return r;
     }
     
     @Override
     public synchronized void setLicense(String str){
         if( str==null )throw new IllegalArgumentException( "str==null" );
         drv.setProperty("License", str);
+        logFine("setLicense {0}", str);
     }
-//</editor-fold>
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="licenseIsPresent:boolean - Признак наличия в ККМ лицензии">
     /**
@@ -1803,7 +1915,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isLicenseIsPresent() {
-        return drv.getPropertyAsBoolean("LicenseIsPresent");
+        boolean r = drv.getPropertyAsBoolean("LicenseIsPresent");
+        logFine("isLicenseIsPresent {0}", r);
+        return r;
     }
     //</editor-fold>
     //</editor-fold>
@@ -1838,15 +1952,18 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized String getStringForPrinting(){
-        return drv.getPropertyAsString("StringForPrinting");
+        String r =  drv.getPropertyAsString("StringForPrinting");
+        logFiner("getStringForPrinting {0}", r);
+        return r;
     }
     
     @Override
     public synchronized void setStringForPrinting( String str ){
         if( str==null )throw new IllegalArgumentException("str==null");
         drv.setProperty("StringForPrinting", str);
+        logFine("setStringForPrinting {0}", str);
     }
-//</editor-fold>
+    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="stringQuantity : int - Количество строк">
     /**
@@ -1865,14 +1982,17 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getStringQuantity(){
-        return drv.getPropertyAsInt("StringQuantity");
+        int r = drv.getPropertyAsInt("StringQuantity");
+        logFiner("getStringQuantity {0}", r);
+        return r;
     }
     
     @Override
     public synchronized void setStringQuantity( int q ){
         drv.setProperty("StringQuantity", q);
+        logFine("setStringQuantity {0}", q);
     }
-//</editor-fold>
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="summ1 : Currency - Сумма1">
     /**
@@ -1891,13 +2011,16 @@ public class ShtrihMJacobDriver implements Driver {
      * @return Сумма1
      */
     @Override
-    public synchronized com.jacob.com.Currency getSumm1(){
-        return drv.getProperty("Summ1").getCurrency();
+    public synchronized Currency getSumm1(){
+        Currency r = drv.getProperty("Summ1").getCurrency();
+        logFiner("getSumm1 {0}", r==null ? null : r.longValue());
+        return r;
     }
     @Override
-    public synchronized void setSumm1( com.jacob.com.Currency cur ){
+    public synchronized void setSumm1( Currency cur ){
         if( cur==null )throw new IllegalArgumentException("cur==null");
         drv.setProperty("Summ1", new Variant(cur));
+        logFine("setSumm1 {0}", cur.longValue());
     }
     //</editor-fold>
 
@@ -1918,12 +2041,15 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized com.jacob.com.Currency getSumm2(){
-        return drv.getProperty("Summ2").getCurrency();
+        Currency r = drv.getProperty("Summ2").getCurrency();
+        logFiner("getSumm2 {0}", r==null ? null : r.longValue());
+        return r;
     }
     @Override
     public synchronized void setSumm2( com.jacob.com.Currency cur ){
         if( cur==null )throw new IllegalArgumentException("cur==null");
         drv.setProperty("Summ2", new Variant(cur));
+        logFine("setSumm2 {0}", cur.longValue());
     }
     //</editor-fold>
 
@@ -1944,12 +2070,15 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized com.jacob.com.Currency getSumm3(){
-        return drv.getProperty("Summ3").getCurrency();
+        Currency r = drv.getProperty("Summ3").getCurrency();
+        logFiner("getSumm3 {0}", r==null ? null : r.longValue());
+        return r;
     }
     @Override
     public synchronized void setSumm3( com.jacob.com.Currency cur ){
         if( cur==null )throw new IllegalArgumentException("cur==null");
         drv.setProperty("Summ3", new Variant(cur));
+        logFine("setSumm3 {0}", cur.longValue());
     }
     //</editor-fold>
 
@@ -1971,12 +2100,15 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized com.jacob.com.Currency getSumm4(){
-        return drv.getProperty("Summ4").getCurrency();
+        Currency r = drv.getProperty("Summ4").getCurrency();
+        logFiner("getSumm4 {0}", r==null ? null : r.longValue());
+        return r;
     }
     @Override
     public synchronized void setSumm4( com.jacob.com.Currency cur ){
         if( cur==null )throw new IllegalArgumentException("cur==null");
         drv.setProperty("Summ4", new Variant(cur));
+        logFine("setSumm4 {0}", cur.longValue());
     }
     //</editor-fold>
 
@@ -1993,11 +2125,14 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized double getDiscountOnCheck(){
-        return drv.getProperty("DiscountOnCheck").getDouble();
+        double r = drv.getProperty("DiscountOnCheck").getDouble();
+        logFiner("getDiscountOnCheck {0}", r);
+        return r;
     }
     @Override
     public synchronized void setDiscountOnCheck(double v){
         drv.setProperty("DiscountOnCheck", new Variant(v));
+        logFine("setDiscountOnCheck {0}", v);
     }
     //</editor-fold>
     
@@ -2017,14 +2152,17 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized Currency getPrice(){
-        return drv.getProperty("Price").getCurrency();
+        Currency r = drv.getProperty("Price").getCurrency();
+        logFiner("getPrice {0}", r==null ? null : r.longValue());
+        return r;
     }
     @Override
     public synchronized void setPrice(Currency cur){
         if( cur==null )throw new IllegalArgumentException("cur==null");
         drv.setProperty("Price", new Variant(cur));
+        logFine("setPrice {0}", cur.longValue());
     }
-//</editor-fold>
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="quantity : double - Количество  товара">
     /**
@@ -2042,14 +2180,17 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized double getQuantity(){
-        return drv.getProperty("Quantity").getDouble();
+        double r = drv.getProperty("Quantity").getDouble();
+        logFiner("getQuantity {0}", r);
+        return r;
     }
     
     @Override
     public synchronized void setQuantity(double v){
         drv.setProperty("Quantity", new Variant(v));
+        logFine("setQuantity {0}", v);
     }
-//</editor-fold>
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="department : int -  Номер отдела (секции)">
     /**
@@ -2069,13 +2210,16 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getDepartment(){
-        return drv.getPropertyAsInt("Department");
+        int r = drv.getPropertyAsInt("Department");
+        logFiner("getDepartment {0}", r);
+        return r;
     }
     @Override
     public synchronized void setDepartment(int dep){
         drv.setProperty("Department",dep);
+        logFine("setDepartment {0}", dep);
     }
-//</editor-fold>
+    //</editor-fold>
   
     //<editor-fold defaultstate="collapsed" desc="tax1 : int - 1-ый номер налоговой группы">
     /**
@@ -2096,11 +2240,14 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getTax1(){
-        return drv.getPropertyAsInt("Tax1");
+        int r = drv.getPropertyAsInt("Tax1");
+        logFiner("getTax1 {0}", r);
+        return r;
     }
     @Override
-    public synchronized void setTax1(int dep){
-        drv.setProperty("Tax1",dep);
+    public synchronized void setTax1(int t){
+        drv.setProperty("Tax1",t);
+        logFine("setTax1 {0}", t);
     }
     //</editor-fold>
   
@@ -2124,11 +2271,14 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getTax2(){
-        return drv.getPropertyAsInt("Tax2");
+        int r = drv.getPropertyAsInt("Tax2");
+        logFiner("getTax2 {0}", r);
+        return r;
     }
     @Override
-    public synchronized void setTax2(int dep){
-        drv.setProperty("Tax2",dep);
+    public synchronized void setTax2(int t){
+        drv.setProperty("Tax2",t);
+        logFine("setTax2 {0}", t);
     }
     //</editor-fold>
   
@@ -2152,11 +2302,14 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getTax3(){
-        return drv.getPropertyAsInt("Tax3");
+        int r = drv.getPropertyAsInt("Tax3");
+        logFiner("getTax3 {0}", r);
+        return r;
     }
     @Override
-    public synchronized void setTax3(int dep){
-        drv.setProperty("Tax3",dep);
+    public synchronized void setTax3(int t){
+        drv.setProperty("Tax3",t);
+        logFine("setTax3 {0}", t);
     }
     //</editor-fold>
   
@@ -2180,11 +2333,14 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getTax4(){
-        return drv.getPropertyAsInt("Tax4");
+        int r = drv.getPropertyAsInt("Tax4");
+        logFiner("getTax4 {0}", r);
+        return r;
     }
     @Override
-    public synchronized void setTax4(int dep){
-        drv.setProperty("Tax4",dep);
+    public synchronized void setTax4(int t){
+        drv.setProperty("Tax4",t);
+        logFine("setTax4 {0}", t);
     }
     //</editor-fold>
     
@@ -2254,7 +2410,9 @@ public class ShtrihMJacobDriver implements Driver {
     })
     @Override
     public synchronized int saleEx(){
-        return drv.invoke("SaleEx").getInt();
+        int r = drv.invoke("SaleEx").getInt();
+        logFine("saleEx {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -2274,7 +2432,8 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getSysAdminPassword(){
-        return drv.getPropertyAsInt("SysAdminPassword");
+        int r = drv.getPropertyAsInt("SysAdminPassword");
+        return r;
     }
     @Override
     public synchronized void setSysAdminPassword(int v){
@@ -2342,7 +2501,9 @@ public class ShtrihMJacobDriver implements Driver {
     })
     @Override
     public synchronized int sale(){
-        return drv.invoke("Sale").getInt();
+        int r = drv.invoke("Sale").getInt();
+        logFine("sale {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -2407,7 +2568,9 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState(state = "8")
     @Override
     public synchronized int closeCheck(){
-        return drv.invoke("CloseCheck").getInt();
+        int r = drv.invoke("CloseCheck").getInt();
+        logFine("closeCheck {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -2453,7 +2616,9 @@ public class ShtrihMJacobDriver implements Driver {
     })
     @Override
     public synchronized int openCheck() {
-        return drv.invoke("OpenCheck").getInt();
+        int r = drv.invoke("OpenCheck").getInt();
+        logFine("openCheck {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -2473,11 +2638,14 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getCheckType() {
-        return drv.getPropertyAsInt("CheckType");
+        int r = drv.getPropertyAsInt("CheckType");
+        logFiner("getCheckType {0}",r);
+        return r;
     }
     @Override
     public synchronized void setCheckType( int v ){
         drv.setProperty("CheckType", v);
+        logFine("setCheckType {0}",v);
     }
     //</editor-fold>
     
@@ -2496,7 +2664,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getOperatorNumber() {
-        return drv.getPropertyAsInt("OperatorNumber");
+        int r = drv.getPropertyAsInt("OperatorNumber");
+        logFiner("getOperatorNumber {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -2516,7 +2686,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized Currency getChange() {
-        return drv.getProperty("Change").getCurrency();
+        Currency r = drv.getProperty("Change").getCurrency();
+        logFiner("getChange {0}",r==null ? null : r.longValue());
+        return r;
     }
     //</editor-fold>
     
@@ -2538,7 +2710,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getECRBuild() {
-        return drv.getPropertyAsInt("ECRBuild");
+        int r = drv.getPropertyAsInt("ECRBuild");
+        logFiner("getECRBuild {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -2555,9 +2729,11 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized Date getECRSoftDate() {
-        return drv.getProperty("ECRSoftDate").getJavaDate();
+        Date r = drv.getProperty("ECRSoftDate").getJavaDate();
+        logFiner("getECRSoftDate {0}",r);
+        return r;
     }
-//</editor-fold>
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="logicalNumber : int - Номер В Зале.">
     /**
@@ -2573,7 +2749,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getLogicalNumber() {
-        return drv.getPropertyAsInt("LogicalNumber");
+        int r = drv.getPropertyAsInt("LogicalNumber");
+        logFiner("getLogicalNumber {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -2593,7 +2771,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getOpenDocumentNumber() {
-        return drv.getPropertyAsInt("OpenDocumentNumber");
+        int r = drv.getPropertyAsInt("OpenDocumentNumber");
+        logFiner("getECRSoftDate {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -2610,9 +2790,11 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isReceiptRibbonIsPresent() {
-        return drv.getPropertyAsBoolean("ReceiptRibbonIsPresent");
+        boolean r = drv.getPropertyAsBoolean("ReceiptRibbonIsPresent");
+        logFiner("isReceiptRibbonIsPresent {0}",r);
+        return r;
     }
-//</editor-fold>
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="journalRibbonIsPresent : boolean - Рулон операционного журнала есть.">
     /**
@@ -2629,7 +2811,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isJournalRibbonIsPresent() {
-        return drv.getPropertyAsBoolean("JournalRibbonIsPresent");
+        boolean r = drv.getPropertyAsBoolean("JournalRibbonIsPresent");
+        logFiner("isJournalRibbonIsPresent {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -2671,12 +2855,15 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getSKNOStatus() {
-        return drv.getPropertyAsInt("SKNOStatus");
+        int r = drv.getPropertyAsInt("SKNOStatus");
+        logFiner("getSKNOStatus {0}",r);
+        return r;
     }
     
     @Override
     public synchronized void setSKNOStatus(int v) {
         drv.setProperty("SKNOStatus", v);
+        logFine("setSKNOStatus {0}",v);
     }
     //</editor-fold>
     
@@ -2696,7 +2883,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isSlipDocumentIsPresent() {
-        return drv.getPropertyAsBoolean("SlipDocumentIsPresent");
+        boolean r = drv.getPropertyAsBoolean("SlipDocumentIsPresent");
+        logFiner("isSlipDocumentIsPresent {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -2717,7 +2906,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isSlipDocumentIsMoving() {
-        return drv.getPropertyAsBoolean("SlipDocumentIsMoving");
+        boolean r = drv.getPropertyAsBoolean("SlipDocumentIsMoving");
+        logFiner("isSlipDocumentIsMoving {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -2737,7 +2928,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isJournalRibbonOpticalSensor() {
-        return drv.getPropertyAsBoolean("JournalRibbonOpticalSensor");
+        boolean r =  drv.getPropertyAsBoolean("JournalRibbonOpticalSensor");
+        logFiner("isJournalRibbonOpticalSensor {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -2756,7 +2949,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isReceiptRibbonOpticalSensor() {
-        return drv.getPropertyAsBoolean("ReceiptRibbonOpticalSensor");
+        boolean r = drv.getPropertyAsBoolean("ReceiptRibbonOpticalSensor");
+        logFiner("isReceiptRibbonOpticalSensor {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -2776,7 +2971,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isJournalRibbonLever() {
-        return drv.getPropertyAsBoolean("JournalRibbonLever");
+        boolean r = drv.getPropertyAsBoolean("JournalRibbonLever");
+        logFiner("isJournalRibbonLever {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -2797,7 +2994,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isReceiptRibbonLever() {
-        return drv.getPropertyAsBoolean("ReceiptRibbonLever");
+        boolean r = drv.getPropertyAsBoolean("ReceiptRibbonLever");
+        logFiner("isReceiptRibbonLever {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -2816,7 +3015,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isLidPositionSensor() {
-        return drv.getPropertyAsBoolean("LidPositionSensor");
+        boolean r = drv.getPropertyAsBoolean("LidPositionSensor");
+        logFiner("isLidPositionSensor {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -2836,7 +3037,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isPrinterLeftSensorFailure() {
-        return drv.getPropertyAsBoolean("IsPrinterLeftSensorFailure");
+        boolean r = drv.getPropertyAsBoolean("IsPrinterLeftSensorFailure");
+        logFiner("isPrinterLeftSensorFailure {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -2854,7 +3057,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isPrinterRightSensorFailure() {
-        return drv.getPropertyAsBoolean("IsPrinterRightSensorFailure");
+        boolean r = drv.getPropertyAsBoolean("IsPrinterRightSensorFailure");
+        logFiner("isPrinterRightSensorFailure {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -2874,7 +3079,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isDrawerOpen() {
-        return drv.getPropertyAsBoolean("IsDrawerOpen");
+        boolean r = drv.getPropertyAsBoolean("IsDrawerOpen");
+        logFiner("isDrawerOpen {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -2895,7 +3102,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getQuantityStringNumber(){
-        return drv.getPropertyAsInt("QuantityStringNumber");
+        int r = drv.getPropertyAsInt("QuantityStringNumber");
+        logFiner("getQuantityStringNumber {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -2915,7 +3124,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isQuantityPointPosition() {
-        return drv.getPropertyAsBoolean("QuantityPointPosition");
+        boolean r = drv.getPropertyAsBoolean("QuantityPointPosition");
+        logFiner("isQuantityPointPosition {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -2934,7 +3145,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isFMOverflow() {
-        return drv.getPropertyAsBoolean("FMOverflow");
+        boolean r = drv.getPropertyAsBoolean("FMOverflow");
+        logFiner("isFMOverflow {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -2955,7 +3168,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getFMResultCode() {
-        return drv.getPropertyAsInt("FMResultCode");
+        int r = drv.getPropertyAsInt("FMResultCode");
+        logFiner("getFMResultCode {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -2985,11 +3200,14 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getFNCurrentDocument() {
-        return drv.getPropertyAsInt("FNCurrentDocument");
+        int r = drv.getPropertyAsInt("FNCurrentDocument");
+        logFiner("getFNCurrentDocument {0}",r);
+        return r;
     }
     @Override
     public synchronized void setFNCurrentDocument( int v) {
         drv.setProperty("FNCurrentDocument", v);
+        logFine("setFNCurrentDocument {0}",v);
     }
     //</editor-fold>
     
@@ -3007,7 +3225,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized Date getFMSoftDate() {
-        return drv.getProperty("FMSoftDate").getJavaDate();
+        Date r = drv.getProperty("FMSoftDate").getJavaDate();
+        logFiner("getFMSoftDate {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -3026,9 +3246,11 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized String getFMSoftVersion() {
-        return drv.getPropertyAsString("FMSoftVersion");
+        String r = drv.getPropertyAsString("FMSoftVersion");
+        logFiner("getFMSoftVersion {0}",r);
+        return r;
     }
-//</editor-fold>
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="FMStringNumber : int - Номер строки фиск логотипа ПД.">
     /**
@@ -3049,11 +3271,14 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getFMStringNumber(){
-        return drv.getPropertyAsInt("FMStringNumber");
+        int r = drv.getPropertyAsInt("FMStringNumber");
+        logFiner("getFMStringNumber {0}",r);
+        return r;
     }
     @Override
     public synchronized void setFMStringNumber(int v){
         drv.setProperty("FMStringNumber", v);
+        logFine("setFMStringNumber {0}",v);
     }
     //</editor-fold>
     
@@ -3082,7 +3307,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getFMMode() {
-        return drv.getPropertyAsInt("FMMode");
+        int r = drv.getPropertyAsInt("FMMode");
+        logFiner("getFMMode {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -3112,7 +3339,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getFMFlagsEx() {
-        return drv.getPropertyAsInt("FMFlagsEx");
+        int r = drv.getPropertyAsInt("FMFlagsEx");
+        logFiner("getFMFlagsEx {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -3140,7 +3369,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getFMFlags() {
-        return drv.getPropertyAsInt("FMFlags");
+        int r = drv.getPropertyAsInt("FMFlags");
+        logFiner("getFMFlags {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -3160,7 +3391,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isBatteryLow() {
-        return drv.getPropertyAsBoolean("IsBatteryLow");
+        boolean r = drv.getPropertyAsBoolean("IsBatteryLow");
+        logFiner("isBatteryLow {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -3178,7 +3411,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isLastFMRecordCorrupted() {
-        return drv.getPropertyAsBoolean("IsLastFMRecordCorrupted");
+        boolean r = drv.getPropertyAsBoolean("IsLastFMRecordCorrupted");
+        logFiner("isLastFMRecordCorrupted {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -3198,7 +3433,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isFM24HoursOver() {
-        return drv.getPropertyAsBoolean("IsFM24HoursOver");
+        boolean r = drv.getPropertyAsBoolean("IsFM24HoursOver");
+        logFiner("isFM24HoursOver {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -3217,7 +3454,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isFMSessionOpen() {
-        return drv.getPropertyAsBoolean("IsFMSessionOpen");
+        boolean r = drv.getPropertyAsBoolean("IsFMSessionOpen");
+        logFiner("isFMSessionOpen {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -3244,9 +3483,11 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getSessionNumber(){
-        return drv.getPropertyAsInt("SessionNumber");
+        int r = drv.getPropertyAsInt("SessionNumber");
+        logFiner("getSessionNumber {0}",r);
+        return r;
     }
-//</editor-fold>
+    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="INN : String - ИНН">
     /**
@@ -3272,7 +3513,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized String getINN() {
-        return drv.getPropertyAsString("INN");
+        String r = drv.getPropertyAsString("INN");
+        logFiner("getINN {0}",r);
+        return r;
     }
     
     @Override
@@ -3281,8 +3524,9 @@ public class ShtrihMJacobDriver implements Driver {
             throw new IllegalArgumentException("str==null");
         }
         drv.setProperty("INN", str);
+        logFine("setINN {0}",str);
     }
-//</editor-fold>
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="registrationNumber : int - Количество перерегистраций">
     /**
@@ -3306,12 +3550,15 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getRegistrationNumber() {
-        return drv.getPropertyAsInt("RegistrationNumber");
+        int r = drv.getPropertyAsInt("RegistrationNumber");
+        logFiner("getRegistrationNumber {0}",r);
+        return r;
     }
     
     @Override
     public synchronized void setRegistrationNumber(int v) {
         drv.setProperty("RegistrationNumber", v);
+        logFiner("setRegistrationNumber {0}",v);
     }
     //</editor-fold>
     
@@ -3332,7 +3579,8 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getFreeRecordInFM() {
-        return drv.getPropertyAsInt("FreeRecordInFM");
+        int r = drv.getPropertyAsInt("FreeRecordInFM");
+        return r;
     }
     //</editor-fold>
     
@@ -3352,7 +3600,8 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getFreeRegistration() {
-        return drv.getPropertyAsInt("FreeRegistration");
+        int r = drv.getPropertyAsInt("FreeRegistration");
+        return r;
     }
     //</editor-fold>
 
@@ -3415,7 +3664,9 @@ public class ShtrihMJacobDriver implements Driver {
     })
     @Override
     public synchronized int saleReturn() {
-        return drv.invoke("ReturnSale").getInt();
+        int r = drv.invoke("ReturnSale").getInt();
+        logFine("saleReturn {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -3476,9 +3727,11 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState(state = "2|4|7|8.1|9")
     @Override
     public synchronized int buy() {
-        return drv.invoke("Buy").getInt();
+        int r = drv.invoke("Buy").getInt();
+        logFine("buy {0}", r);
+        return r;
     }
-//</editor-fold>
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="buyReturn() - Возврат покупки">
     /**
@@ -3546,7 +3799,9 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState(state = "2|4|7|8.3|9")
     @Override
     public synchronized int buyReturn() {
-        return drv.invoke("ReturnBuy").getInt();
+        int r = drv.invoke("ReturnBuy").getInt();
+        logFine("buyReturn {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -3605,7 +3860,9 @@ public class ShtrihMJacobDriver implements Driver {
     })
     @Override
     public synchronized int storno() {
-        return drv.invoke("Storno").getInt();
+        int r = drv.invoke("Storno").getInt();
+        logFine("storno {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -3647,7 +3904,9 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState(state = "2|3")
     @Override
     public synchronized int repeatDocument() {
-        return drv.invoke("RepeatDocument").getInt();
+        int r = drv.invoke("RepeatDocument").getInt();
+        logFine("repeatDocument {0}", r);
+        return r;
     }
     //</editor-fold>
            
@@ -3680,7 +3939,9 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState(state = "8")
     @Override
     public synchronized int cancelCheck(){
-        return drv.invoke( "CancelCheck" ).getInt();
+        int r = drv.invoke( "CancelCheck" ).getInt();
+        logFine("cancelCheck {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -3724,7 +3985,9 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState(state = "2|3|4|7|9")
     @Override
     public synchronized int cashIncome() {
-        return drv.invoke("CashIncome").getInt();
+        int r = drv.invoke("CashIncome").getInt();
+        logFine("cashIncome {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -3771,7 +4034,9 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState(state = "2|3|4|7|9")
     @Override
     public synchronized int cashOutcome() {
-        return drv.invoke("CashOutcome").getInt();
+        int r = drv.invoke("CashOutcome").getInt();
+        logFine("cashOutcome {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -3795,7 +4060,9 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState()
     @Override
     public synchronized int beginDocument() {
-        return drv.invoke("BeginDocument").getInt();
+        int r = drv.invoke("BeginDocument").getInt();
+        logFine("beginDocument {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -3846,7 +4113,9 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState(state = "8")
     @Override
     public synchronized int charge() {
-        return drv.invoke("Charge").getInt();
+        int r = drv.invoke("Charge").getInt();
+        logFine("charge {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -3884,7 +4153,9 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState(state = "8")
     @Override
     public synchronized int checkSubTotal(){
-        return drv.invoke("CheckSubTotal").getInt();
+        int r = drv.invoke("CheckSubTotal").getInt();
+        logFine("checkSubTotal {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -3949,7 +4220,9 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState(state = "8")
     @Override
     public synchronized int closeCheckWithKPK(){
-        return drv.invoke("CloseCheckWithKPK").getInt();
+        int r = drv.invoke("CloseCheckWithKPK").getInt();
+        logFine("closeCheckWithKPK {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -4007,7 +4280,9 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState(state = "8")
     @Override
     public synchronized int discount(){
-        return drv.invoke("Discount").getInt();
+        int r = drv.invoke("Discount").getInt();
+        logFine("discount {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -4025,7 +4300,9 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState()
     @Override
     public synchronized int endDocument() {
-        return drv.invoke("EndDocument").getInt();
+        int r = drv.invoke("EndDocument").getInt();
+        logFine("endDocument {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -4064,7 +4341,9 @@ public class ShtrihMJacobDriver implements Driver {
     })
     @Override
     public synchronized int printReportWithCleaning() {
-        return drv.invoke("PrintReportWithCleaning").getInt();
+        int r = drv.invoke("PrintReportWithCleaning").getInt();
+        logFine("printReportWithCleaning {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -4116,7 +4395,9 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState(state = "!8|!10|!11|!12|!14|!*.*.4|!*.*.5")
     @Override
     public synchronized int feedDocument() {
-        return drv.invoke("FeedDocument").getInt();
+        int r = drv.invoke("FeedDocument").getInt();
+        logFine("feedDocument {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -4138,11 +4419,14 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isUseSlipDocument() {
-        return drv.getPropertyAsBoolean("UseSlipDocument");
+        boolean r = drv.getPropertyAsBoolean("UseSlipDocument");
+        logFiner("isUseSlipDocument {0}",r);
+        return r;
     }
     @Override
     public synchronized void setUseSlipDocument( boolean v ){
         drv.setProperty("UseSlipDocument", v);
+        logFine("setUseSlipDocument {0}",v);
     }
     //</editor-fold>
     
@@ -4164,12 +4448,15 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isUseReceiptRibbon() {
-        return drv.getPropertyAsBoolean("UseReceiptRibbon");
+        boolean r = drv.getPropertyAsBoolean("UseReceiptRibbon");
+        logFiner("isUseReceiptRibbon {0}",r);
+        return r;
     }
     
     @Override
     public synchronized void setUseReceiptRibbon(boolean v) {
         drv.setProperty("UseReceiptRibbon", v);
+        logFine("setUseReceiptRibbon {0}",v);
     }
     //</editor-fold>
     
@@ -4192,12 +4479,15 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized boolean isUseJournalRibbon() {
-        return drv.getPropertyAsBoolean("UseJournalRibbon");
+        boolean r = drv.getPropertyAsBoolean("UseJournalRibbon");
+        logFiner("isUseJournalRibbon {0}",r);
+        return r;
     }
     
     @Override
     public synchronized void setUseJournalRibbon(boolean v) {
         drv.setProperty("UseJournalRibbon", v);
+        logFine("setUseJournalRibbon {0}",v);
     }
     //</editor-fold>
     
@@ -4259,7 +4549,9 @@ public class ShtrihMJacobDriver implements Driver {
     })
     @Override
     public synchronized int printString(){
-        return drv.invoke("PrintString").getInt();
+        int r = drv.invoke("PrintString").getInt();
+        logFine("printString {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -4522,7 +4814,9 @@ public class ShtrihMJacobDriver implements Driver {
     })
     @Override
     public synchronized int GetCashReg(){
-        return drv.invoke("GetCashReg").getInt();
+        int r = drv.invoke("GetCashReg").getInt();
+        logFine("GetCashReg {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -4537,7 +4831,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getRegisterNumber(){
-        return drv.getPropertyAsInt("RegisterNumber");
+        int r = drv.getPropertyAsInt("RegisterNumber");
+        logFiner("getRegisterNumber {0}",r);
+        return r;
     }
     
     /**
@@ -4549,6 +4845,7 @@ public class ShtrihMJacobDriver implements Driver {
     @Override
     public synchronized void setRegisterNumber(int v){
         drv.setProperty("RegisterNumber", v);
+        logFine("setRegisterNumber {0}",v);
     }
     //</editor-fold>
     
@@ -4567,9 +4864,11 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized Currency getContentsOfCashRegister(){
-        return drv.getProperty("ContentsOfCashRegister").getCurrency();
+        Currency r = drv.getProperty("ContentsOfCashRegister").getCurrency();
+        logFiner("getContentsOfCashRegister {0}",r==null ? null : r.longValue());
+        return r;
     }
-//</editor-fold>
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="nameCashReg">
     /*
@@ -4584,9 +4883,11 @@ public class ShtrihMJacobDriver implements Driver {
     */
     @Override
     public synchronized String getNameCashReg(){
-        return drv.getPropertyAsString("NameCashReg");
+        String r = drv.getPropertyAsString("NameCashReg");
+        logFiner("getNameCashReg {0}",r);
+        return r;
     }
-//</editor-fold>
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="GetOperationReg() - Запрос  содержимого  операционного  регистра.">
     /**
@@ -4660,7 +4961,9 @@ public class ShtrihMJacobDriver implements Driver {
     })
     @Override
     public synchronized int GetOperationReg(){
-        return drv.invoke("GetOperationReg").getInt();
+        int r = drv.invoke("GetOperationReg").getInt();
+        logFine("GetOperationReg {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -4682,9 +4985,11 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getContentsOfOperationRegister() {
-        return drv.getPropertyAsInt("ContentsOfOperationRegister");
+        int r = drv.getPropertyAsInt("ContentsOfOperationRegister");
+        logFiner("getContentsOfOperationRegister {0}",r);
+        return r;
     }
-//</editor-fold>
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="nameOperationReg">
     /**
@@ -4703,7 +5008,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized String getNameOperationReg() {
-        return drv.getPropertyAsString("NameOperationReg");
+        String r = drv.getPropertyAsString("NameOperationReg");
+        logFiner("getNameOperationReg {0}",r);
+        return r;
     }
     //</editor-fold>
     
@@ -4754,7 +5061,9 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState(state = "8")
     @Override
     public synchronized int stornoCharge() {
-        return drv.invoke("StornoCharge").getInt();
+        int r = drv.invoke("StornoCharge").getInt();
+        logFine("stornoCharge {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -4805,7 +5114,9 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState(state = "8")
     @Override
     public synchronized int stornoDiscount() {
-        return drv.invoke("StornoDiscount").getInt();
+        int r = drv.invoke("StornoDiscount").getInt();
+        logFine("stornoDiscount {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -4843,7 +5154,9 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState(state = "2|3|4")
     @Override
     public synchronized int printReportWithoutCleaning() {
-        return drv.invoke("PrintReportWithoutCleaning").getInt();
+        int r = drv.invoke("PrintReportWithoutCleaning").getInt();
+        logFine("printReportWithoutCleaning {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -4878,7 +5191,9 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState(state = "2|3")
     @Override
     public synchronized int printTaxReport() {
-        return drv.invoke("PrintTaxReport").getInt();
+        int r = drv.invoke("PrintTaxReport").getInt();
+        logFine("printTaxReport {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -4904,7 +5219,9 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState(state = "?")
     @Override
     public synchronized int printWareReport() {
-        return drv.invoke("PrintWareReport").getInt();
+        int r = drv.invoke("PrintWareReport").getInt();
+        logFine("printWareReport {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -4939,7 +5256,9 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState(state = "?")
     @Override
     public synchronized int printZReportFromBuffer() {
-        return drv.invoke("PrintZReportFromBuffer").getInt();
+        int r = drv.invoke("PrintZReportFromBuffer").getInt();
+        logFine("printZReportFromBuffer {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -4977,7 +5296,9 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState(state = "?")
     @Override
     public synchronized int printZReportInBuffer() {
-        return drv.invoke("PrintZReportInBuffer").getInt();
+        int r = drv.invoke("PrintZReportInBuffer").getInt();
+        logFine("printZReportInBuffer {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -5009,7 +5330,9 @@ public class ShtrihMJacobDriver implements Driver {
     @CallState(state = "?")
     @Override
     public synchronized int readReportBufferLine() {
-        return drv.invoke("ReadReportBufferLine").getInt();
+        int r = drv.invoke("ReadReportBufferLine").getInt();
+        logFine("readReportBufferLine {0}", r);
+        return r;
     }
     //</editor-fold>
     
@@ -5039,7 +5362,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getDocumentNumber() {
-        return drv.getPropertyAsInt("DocumentNumber");
+        int r = drv.getPropertyAsInt("DocumentNumber");
+        logFiner("getDocumentNumber {0}", r);
+        return r;
     }
     
     /**
@@ -5050,6 +5375,7 @@ public class ShtrihMJacobDriver implements Driver {
     @Override
     public synchronized void setDocumentNumber(int v){
         drv.setProperty("DocumentNumber", v);
+        logFine("setDocumentNumber {0}", v);
     }
     //</editor-fold>
     
@@ -5086,7 +5412,9 @@ public class ShtrihMJacobDriver implements Driver {
      */
     @Override
     public synchronized int getLineNumber() {
-        return drv.getPropertyAsInt("LineNumber");
+        int r = drv.getPropertyAsInt("LineNumber");
+        logFiner("getLineNumber {0}", r);
+        return r;
     }
     
     /**
@@ -5097,6 +5425,7 @@ public class ShtrihMJacobDriver implements Driver {
     @Override
     public synchronized void setLineNumber( int v ){
         drv.setProperty("LineNumber", v);
+        logFine("setLineNumber {0}", v);
     }
     //</editor-fold>
 }
